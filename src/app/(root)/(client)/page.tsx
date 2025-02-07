@@ -1,3 +1,4 @@
+import Hero from "@/components/pages/home/Hero";
 import SignInSection from "@/components/pages/home/SignIn";
 
 export const metadata = {
@@ -7,8 +8,9 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <main className="container py-16 border">
+    <>
+      <Hero/>
       <SignInSection />
-    </main>
+    </>
   );
 }

@@ -13,3 +13,22 @@ export const Options = {
     { value: "Perempuan", name: "Perempuan" },
   ]
 }
+
+export const Menus = [
+  {
+    name: "Beranda",
+    href: "/",
+  },
+  {
+    name: "Register",
+    href: "/student/register",
+  },
+  {
+    name: "Search",
+    href: "/student/search",
+  },
+  {
+    name: "Kontak",
+    href: "/contact",
+  }
+];

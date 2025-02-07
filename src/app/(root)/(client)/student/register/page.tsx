@@ -6,8 +6,8 @@ export const metadata = {
 
 export default function Register() {
   return (
-    <main className="container py-16 border">
+    <>
       <RegisterSection/>
-    </main>
+    </>
   );
 }

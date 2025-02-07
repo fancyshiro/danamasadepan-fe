@@ -22,7 +22,10 @@ module.exports = {
       // },
       container: {
         center: true,
-        padding: '1rem',
+        padding: {
+          DEFAULT: "1rem",
+          sm: "2rem",
+        },
         screens: {
           // 'xs': '375px',
           'sm': '640px',

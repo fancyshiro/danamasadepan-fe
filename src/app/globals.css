@@ -37,8 +37,9 @@
   }
 
   p {
-    @apply text-zinc-600 text-small font-medium tracking-wider text-pretty
+    @apply text-zinc-600 text-small font-medium tracking-wider leading-6 text-pretty
   }
+
 }
 
 @screen sm {
