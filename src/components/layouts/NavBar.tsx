@@ -15,7 +15,7 @@ const NavBar = () => {
         <h6>Dana Masa Depan</h6>
       </NavbarBrand>
       <NavbarContent justify="center" className="gap-8 hidden md:flex">
-        {Menus.map((item) => (
+        {Menus.home.map((item) => (
           <NavbarItem>
             <Link color={item.href === path ? "primary" : "foreground"} href={item.href} underline={item.href === path ? "always" : "hover"}>
               {item.name}
