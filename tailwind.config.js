@@ -17,14 +17,14 @@ module.exports = {
         inter: ["font-inter", "sans-serif"],
         work: ["font-work-sans", "sans-serif"],
       },
-      screens: {
-        'xs': '375px',
-      },
+      // screens: {
+      //   'xs': '375px',
+      // },
       container: {
         center: true,
         padding: '1rem',
         screens: {
-          'xs': '375px',
+          // 'xs': '375px',
           'sm': '640px',
           'md': '768px',
           'lg': '1024px',

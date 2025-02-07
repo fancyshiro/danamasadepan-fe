@@ -1,25 +1,27 @@
 "use client";
 
 import { useLogin } from "@/lib/hooks/useAuth";
-import { Auth, AuthSchema } from "@/lib/schema/Auth";
-import { Button, Input } from "@heroui/react";
+import { Login, LoginSchema } from "@/lib/schema/Auth";
+import { Button, Divider, Input } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const SignIn = () => {
-  const { formState, register, handleSubmit } = useForm<Auth>({
+  const { formState, register, handleSubmit } = useForm<Login>({
     mode: 'onSubmit',
-    resolver: zodResolver(AuthSchema),
+    resolver: zodResolver(LoginSchema),
   });
   const { mutate, isPending } = useLogin();
 
   return (
-    <div>
+    <div className="lg:border lg:rounded-2xl sm:p-6 lg:bg-white lg:shadow-lg">
 
       <div>
         <h2>Sign In</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, perspiciatis.</p>
       </div>
+
+      <Divider className="my-6" />
 
       <form
         onSubmit={handleSubmit((data) =>
@@ -41,6 +43,8 @@ const SignIn = () => {
             placeholder="Masukan Password Anda"
             type="password"
             labelPlacement="outside"
+            isInvalid={Boolean(formState.errors.password)}
+            errorMessage={formState.errors.password?.message?.toString()}
             {...register("password")}
           />
         </div>
