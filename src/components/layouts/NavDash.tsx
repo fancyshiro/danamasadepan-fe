@@ -1,8 +1,10 @@
 "use client";
 
+import { useGetAdmin } from "@/lib/hooks/useAdmin";
 import { Menus } from "@/static/Resource";
 import {
   Avatar,
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -11,8 +13,14 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/react";
+import { usePathname } from "next/navigation";
 
 const NavDash = () => {
+  const path = usePathname();
+  const { data } = useGetAdmin("detail");
+
+  const user = data?.result;
+
   return (
     <Navbar
       isBordered
@@ -32,8 +40,15 @@ const NavDash = () => {
 
       <NavbarContent justify="end" className="hidden lg:flex">
         <NavbarItem className="flex gap-4 items-center">
-          <p>Super Admin</p>
-          <Avatar isBordered />
+          <p>{user?.name ?? ""}</p>
+          {user?.photo && (
+            <Avatar
+              as="a"
+              isBordered
+              src={`${process.env.NEXT_PUBLIC_STORAGE_ADMIN}${user?.photo}`}
+              href={`${process.env.NEXT_PUBLIC_STORAGE_ADMIN}${user?.photo}`}
+            />
+          )}
         </NavbarItem>
       </NavbarContent>
 
@@ -44,7 +59,11 @@ const NavDash = () => {
       <NavbarMenu className="z-50 mt-8 space-y-2">
         {Menus.dashboard.map((item) =>
           item.items.map((item) => (
-            <NavbarMenuItem as="a">{item.name}</NavbarMenuItem>
+            <NavbarMenuItem key={item.name}>
+              <Link color={item.href === path ? "primary" : "foreground"}  href={item.href} className="w-full">
+                {item.name}
+              </Link>
+            </NavbarMenuItem>
           ))
         )}
       </NavbarMenu>

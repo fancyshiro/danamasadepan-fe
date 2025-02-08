@@ -16,6 +16,7 @@ module.exports = {
       fontFamily: {
         inter: ["font-inter", "sans-serif"],
         work: ["font-work-sans", "sans-serif"],
+        poppins: ["font-poppins", "sans-serif"],
       },
       // screens: {
       //   'xs': '375px',

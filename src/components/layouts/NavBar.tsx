@@ -16,7 +16,7 @@ const NavBar = () => {
       </NavbarBrand>
       <NavbarContent justify="center" className="gap-8 hidden md:flex">
         {Menus.home.map((item) => (
-          <NavbarItem>
+          <NavbarItem key={item.name}>
             <Link color={item.href === path ? "primary" : "foreground"} href={item.href} underline={item.href === path ? "always" : "hover"}>
               {item.name}
             </Link>

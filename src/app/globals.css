@@ -9,7 +9,7 @@
 
 @layer base {
   body {
-    @apply font-inter w-full min-h-screen bg-neutral-50 dark:bg-neutral-950;
+    @apply font-inter min-w-max min-h-screen bg-neutral-50 dark:bg-neutral-950;
   }
 
   h1 {

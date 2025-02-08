@@ -1,3 +1,5 @@
+import { Icons } from "./Icons";
+
 export const Options = {
   class: [
     { value: "X", name: "X" },
@@ -40,27 +42,27 @@ export const Menus = {
         {
           name: "Dashboard",
           href: "/dashboard",
-          icon: null,
+          icon: Icons.Dashboard,
         },
         {
           name: "Pendaftaran",
-          href: "/",
-          icon: null,
+          href: "/dashboard/register",
+          icon: Icons.Register,
         },
         {
           name: "Siswa",
           href: "/",
-          icon: null,
+          icon: Icons.Student,
         },
         {
           name: "Admin",
           href: "/",
-          icon: null,
+          icon: Icons.Admin,
         },
         {
           name: "Transaksi",
           href: "/",
-          icon: null,
+          icon: Icons.Transaction,
         },
       ],
     },

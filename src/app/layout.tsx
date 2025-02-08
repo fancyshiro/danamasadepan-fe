@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Work_Sans } from "next/font/google";
+import { Inter, Poppins, Work_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/layouts/Providers";
 
@@ -14,6 +14,12 @@ const inter = Inter({
   variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
+})
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${workSans.variable} ${inter.variable}`}>
+      <body className={`${workSans.variable} ${inter.variable} ${poppins.variable}`}>
         <Providers>{children}</Providers>
       </body>
     </html>
