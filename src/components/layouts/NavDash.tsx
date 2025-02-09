@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAdmin } from "@/lib/hooks/useAdmin";
+import { useGetUser } from "@/lib/hooks/useAdmin";
 import { Menus } from "@/static/Resource";
 import {
   Avatar,
@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 
 const NavDash = () => {
   const path = usePathname();
-  const { data } = useGetAdmin("detail");
+  const { data } = useGetUser();
 
   const user = data?.result;
 

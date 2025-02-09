@@ -6,9 +6,11 @@ import { Button } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Link from "next/link";
+import { useLogout } from "@/lib/hooks/useAdmin";
 
 const SideBarDash = () => {
   const path = usePathname();
+  const { mutate, isPending } = useLogout()
 
   return (
     <div className="hidden lg:block">
@@ -37,6 +39,9 @@ const SideBarDash = () => {
         variant="flat"
         startContent={Icons.Logout}
         fullWidth
+        onPress={() => mutate()}
+        isDisabled={isPending}
+        isLoading={isPending}
       >
         Logout
       </Button>

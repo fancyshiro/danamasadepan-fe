@@ -52,7 +52,7 @@ const TableTransaction = () => {
 
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="opaque" isDismissable={false} isKeyboardDismissDisabled={true}
         classNames={{
-          backdrop: "bg-gradient-to-t from-neutral-900 to-neutral-900/10 backdrop-opacity-20",
+          backdrop: "bg-gradient-to-t from-neutral-800 to-neutral-900/10 backdrop-opacity-20",
         }}>
         <ModalContent>
           {(onClose) => (
