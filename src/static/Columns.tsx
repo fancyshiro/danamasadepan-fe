@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip, Switch } from "@heroui/react";
+import { Button, Chip, Switch } from "@heroui/react";
 import { formattedDate } from "@/lib/utils/FormatedDate";
 import { Icons } from "./Icons";
 
@@ -49,8 +49,6 @@ const createTransactionColumns = () => {
     },
   ] as Columns[];
 };
-
-// ------------------------------------------------------------------------------ //
 
 const createRegisterColumns = (
   onChangeAllowed: (id: number, allowed: boolean) => void
@@ -109,4 +107,153 @@ const createRegisterColumns = (
   ] as Columns[];
 };
 
-export { createTransactionColumns, createRegisterColumns };
+const createStudentColumns = () => {
+  return [
+    {
+      key: "id",
+      label: "ID",
+    },
+    {
+      key: "name",
+      label: "Nama",
+    },
+    {
+      key: "email",
+      label: "Email",
+    },
+    {
+      key: "gender",
+      label: "Jenis Kelamin",
+    },
+    {
+      key: "class",
+      label: "Kelas",
+    },
+    {
+      key: "major",
+      label: "Jurusan",
+    },
+    {
+      key: "created_at",
+      label: "Tanggal Disetujui",
+      renderCell: (item) => formattedDate(item.created_at),
+    },
+    {
+      key: "action",
+      label: "Aksi",
+      renderCell: (item) => (
+        <div className="flex gap-2">
+          <Button
+            isIconOnly
+            startContent={Icons.Eye}
+            color="primary"
+            variant="flat"
+          />
+          <Button
+            isIconOnly
+            startContent={Icons.Edit}
+            color="warning"
+            variant="flat"
+          />
+          <Button
+            isIconOnly
+            startContent={Icons.Delete}
+            color="danger"
+            variant="flat"
+          />
+        </div>
+      ),
+    },
+  ] as Columns[];
+};
+
+const createRoleColumns = () => {
+  return [
+    {
+      key: "id",
+      label: "ID",
+    },
+    {
+      key: "name",
+      label: "Nama",
+    },
+    {
+      key: "description",
+      label: "Deskripsi",
+      renderCell: (item) => "-",
+    },
+    {
+      key: "created_at",
+      label: "Tanggal Buat",
+      renderCell: (item) => formattedDate(item.created_at),
+    },
+  ] as Columns[];
+};
+
+const createAdminColumns = () => {
+  return [
+    {
+      key: "id",
+      label: "ID",
+    },
+    {
+      key: "name",
+      label: "Nama",
+    },
+    {
+      key: "role",
+      label: "Role",
+      renderCell: (item) => (
+        <Chip
+          color={item.role.name === "Super Admin" ? "danger" : "warning"}
+          variant="flat"
+        >
+          {item.role.name}
+        </Chip>
+      ),
+    },
+    {
+      key: "email",
+      label: "Email",
+    },
+    {
+      key: "created_at",
+      label: "Tanggal Buat",
+      renderCell: (item) => formattedDate(item.created_at),
+    },
+    {
+      key: "action",
+      label: "Aksi",
+      renderCell: (item) => (
+        <div className="flex gap-2">
+          <Button
+            isIconOnly
+            startContent={Icons.Eye}
+            color="primary"
+            variant="flat"
+          />
+          <Button
+            isIconOnly
+            startContent={Icons.Edit}
+            color="warning"
+            variant="flat"
+          />
+          <Button
+            isIconOnly
+            startContent={Icons.Delete}
+            color="danger"
+            variant="flat"
+          />
+        </div>
+      ),
+    },
+  ] as Columns[];
+};
+
+export {
+  createAdminColumns,
+  createTransactionColumns,
+  createRoleColumns,
+  createRegisterColumns,
+  createStudentColumns,
+};

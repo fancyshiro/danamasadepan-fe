@@ -15,5 +15,5 @@ export function formattedDate(date: string | Date): string {
   if (diffHours < 24) return `${diffHours} jam yang lalu`;
   if (diffDays === 1) return `Kemarin, ${inputDate.format("D MMMM")}`;
 
-  return inputDate.format("dddd, D MMMM"); // : "Senin, 25 Oktober"
+  return inputDate.format("dddd, D MMMM");
 }

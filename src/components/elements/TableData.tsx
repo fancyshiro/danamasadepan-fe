@@ -38,12 +38,12 @@ type TableProps = {
   };
 };
 
-export default function DataTable({ columns, data, title, isLoading = false, rowsPerPage = 10, searchPlaceholder = "Cari...", classNames = {}, modal} : TableProps) {
+export default function DataTable({ columns, data = [], title, isLoading = false, rowsPerPage = 10, searchPlaceholder = "Cari...", classNames = {}, modal} : TableProps) {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter data berdasarkan search
-  const filteredData = data.filter((item) =>
+  const filteredData = data?.filter((item) =>
     Object.entries(item).some(([key, value]) => {
 
       // Hanya cari di kolom yang ada di columns
@@ -76,7 +76,7 @@ export default function DataTable({ columns, data, title, isLoading = false, row
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         {title && (
           <div>
-            <h1 className={`text-2xl font-bold ${classNames.title}`}>{title}</h1>
+            <h3 className={`${classNames.title}`}>{title}</h3>
             <p className="max-w-[90%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, sed.</p>
           </div>
         )}

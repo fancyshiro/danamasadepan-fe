@@ -52,12 +52,12 @@ export const Menus = {
         },
         {
           name: "Siswa",
-          href: "/",
+          href: "/dashboard/student",
           icon: Icons.Student,
         },
         {
           name: "Admin",
-          href: "/",
+          href: "/dashboard/admin",
           icon: Icons.Admin,
         },
         {
@@ -67,7 +67,7 @@ export const Menus = {
         },
         {
           name: "Kategori Role",
-          href: "/",
+          href: "/dashboard/role",
           icon: Icons.Role,
         },
       ],
@@ -78,17 +78,17 @@ export const Menus = {
         {
           name: "Profile",
           href: "/profile",
-          icon: null,
+          icon: Icons.Profile,
         },
         {
           name: "Laporan",
           href: "/report",
-          icon: null,
+          icon: Icons.File,
         },
         {
           name: "Pengaturan",
           href: "/settings",
-          icon: null,
+          icon: Icons.Setting,
         },
       ],
     },

@@ -11,15 +11,11 @@ import { useGetStudent } from "./useStudent";
  * @returns data admin yang sedang login
  */
 function useGetAdmin(type: 'all' | 'detail') {
-  const url = type === 'all' ? 'admin' : 'admin/detail'
+  // const url = type === 'all' ? 'admin' : 'admin/detail'
   
   return useQuery({
     queryKey: ["admin"],
-    queryFn: () => axiosInstance.get(url, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    }).then(res => res.data),
+    queryFn: () => axiosInstance.get('admin').then(res => res.data),
   })
 }
 
@@ -34,12 +30,7 @@ function useChangeAllowed(){
   const { refetch } = useGetStudent('all')
 
   return useMutation({
-    mutationFn: async (data: { id: number, allowed: boolean }) => axiosInstance.put('admin/update/status', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${getToken()}`
-      }
-    }).then(res => res.data),
+    mutationFn: async (data: { id: number, allowed: boolean }) => axiosInstance.put('admin/update/status', data).then(res => res.data),
     onSuccess: (data) => {
       refetch()
       toast.success(data?.message)
