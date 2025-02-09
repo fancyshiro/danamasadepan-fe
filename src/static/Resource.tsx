@@ -1,3 +1,4 @@
+
 import { Icons } from "./Icons";
 
 export const Options = {
@@ -61,8 +62,13 @@ export const Menus = {
         },
         {
           name: "Transaksi",
-          href: "/",
+          href: "/dashboard/transaction",
           icon: Icons.Transaction,
+        },
+        {
+          name: "Kategori Role",
+          href: "/",
+          icon: Icons.Role,
         },
       ],
     },

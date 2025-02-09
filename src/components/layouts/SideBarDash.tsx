@@ -3,9 +3,9 @@
 import { Icons } from "@/static/Icons";
 import { Menus } from "@/static/Resource";
 import { Button } from "@heroui/react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import Link from "next/link";
 
 const SideBarDash = () => {
   const path = usePathname();

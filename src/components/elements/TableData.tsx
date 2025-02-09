@@ -18,7 +18,7 @@ import { BiSearch } from "react-icons/bi";
 type Column = {
   key: string;
   label: string;
-  renderCell?: (item: any) => React.ReactNode;
+  renderCell?: (item: any ) => React.ReactNode;
 };
 
 type TableProps = {
@@ -28,6 +28,7 @@ type TableProps = {
   isLoading?: boolean;
   rowsPerPage?: number;
   searchPlaceholder?: string;
+  modal?: React.ReactNode;
   classNames?: {
     wrapper?: string;
     table?: string;
@@ -37,27 +38,17 @@ type TableProps = {
   };
 };
 
-export default function DataTable({
-  columns,
-  data,
-  title = "",
-  isLoading = false,
-  rowsPerPage = 5,
-  searchPlaceholder = "Cari...",
-  classNames = {}
-}: TableProps) {
+export default function DataTable({ columns, data, title, isLoading = false, rowsPerPage = 10, searchPlaceholder = "Cari...", classNames = {}, modal} : TableProps) {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter data berdasarkan search
   const filteredData = data.filter((item) =>
     Object.entries(item).some(([key, value]) => {
+
       // Hanya cari di kolom yang ada di columns
       if (columns.find((col) => col.key === key)) {
-        return (
-          value &&
-          value.toString().toLowerCase().includes(searchValue.toLowerCase())
-        );
+        return ( value && value.toString().toLowerCase().includes(searchValue.toLowerCase()));
       }
       return false;
     })
@@ -83,7 +74,17 @@ export default function DataTable({
   return (
     <div className={`w-full space-y-4 ${classNames.wrapper}`}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        {title && <h1 className={`text-2xl font-bold ${classNames.title}`}>{title}</h1>}
+        {title && (
+          <div>
+            <h1 className={`text-2xl font-bold ${classNames.title}`}>{title}</h1>
+            <p className="max-w-[90%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, sed.</p>
+          </div>
+        )}
+        {modal && (
+          <div>
+            {modal}
+          </div>
+        )}
         <div className={`relative w-full sm:w-72 ${classNames.search}`}>
           <Input
             placeholder={searchPlaceholder}
@@ -99,15 +100,15 @@ export default function DataTable({
           aria-label="Data Table"
           className={classNames.table}
           bottomContent={
-            pages > 1 ? (
-              <div className={`flex justify-center ${classNames.pagination}`}>
-                <Pagination
-                  total={pages}
-                  page={currentPage}
-                  onChange={setCurrentPage}
-                />
-              </div>
-            ) : null
+            <div className={`flex justify-between ${classNames.pagination}`}>
+              <p>Jumlah Data: {filteredData.length}</p>
+              <Pagination
+                showControls 
+                total={pages}
+                page={currentPage}
+                onChange={setCurrentPage}
+              />
+            </div>
           }
         >
           <TableHeader>

@@ -1,4 +1,4 @@
-import RegisterSection from "@/components/pages/Register";
+import RegisterSection from "@/components/pages/other/Register";
 
 export const metadata = {
   title: "Register",
