@@ -13,7 +13,9 @@ const addAdminSchema = z.object({
   name: z.string().min(3, "Nama minimal 3 karakter"),
   email: z.string().email("Email tidak valid"),
   password: z.string().min(6, "Password minimal 6 karakter"),
-  photo: z.custom<FileList>().refine(
+  photo: z
+    .custom<FileList>()
+    .refine(
       (files) => !files || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
       "Hanya format .jpg, .jpeg, .png, .gif dan .svg yang didukung"
     ),
@@ -23,3 +25,15 @@ const addAdminSchema = z.object({
 type AdminFormData = z.infer<typeof addAdminSchema>;
 
 export { addAdminSchema, type AdminFormData };
+
+const updateAdminSchema = z.object({
+  name: z.string().min(3, "Nama minimal 3 karakter"),
+  email: z.string().email("Email tidak valid"),
+  photo: z
+    .custom<FileList>().optional(),
+  role_id: z.string().optional(),
+});
+
+type AdminUpdateFormData = z.infer<typeof updateAdminSchema>;
+
+export { updateAdminSchema, type AdminUpdateFormData };

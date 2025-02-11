@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroui/react": "^2.6.14",
     "@hookform/resolvers": "^3.10.0",
+    "@splinetool/react-spline": "^4.0.0",
     "@tanstack/react-query": "^5.66.0",
     "axios": "^1.7.9",
     "gridjs": "^6.2.0",

@@ -231,6 +231,8 @@ const createAdminColumns = () => {
             startContent={Icons.Eye}
             color="primary"
             variant="flat"
+            as="a"
+            href={`/dashboard/admin/detail/${item.id  }`}
           />
           <Button
             isIconOnly

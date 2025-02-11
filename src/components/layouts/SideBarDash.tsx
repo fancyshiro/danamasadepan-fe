@@ -6,7 +6,7 @@ import { Button } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Link from "next/link";
-import { useLogout } from "@/lib/hooks/useAdmin";
+import { useLogout } from "@/lib/hooks/useAuth";
 
 const SideBarDash = () => {
   const path = usePathname();

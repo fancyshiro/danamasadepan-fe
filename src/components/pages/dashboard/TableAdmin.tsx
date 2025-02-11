@@ -24,12 +24,12 @@ const TableAdmin = () => {
   const { data: admin, isLoading: loadAdmin } = useGetAdmin();
   const { data: role } = useGetRole();
 
+  // Function Add Admin
+  const { mutate, isPending } = useAddAdmin();
   const { register, handleSubmit, reset, formState: { errors }} = useForm<AdminFormData>({
     resolver: zodResolver(addAdminSchema),
     mode: "onSubmit",
   });
-
-  const { mutate, isPending } = useAddAdmin();
 
   return (
     <>

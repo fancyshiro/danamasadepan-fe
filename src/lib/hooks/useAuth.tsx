@@ -30,6 +30,11 @@ function useLogin() {
   })
 }
 
+/**
+ * Function untuk melakukan register
+ * 
+ * @returns 
+ */
 function useRegister() {
   return useMutation({
     mutationFn: async (data: FormData) => axiosInstance.post('/auth/register', data, {
@@ -48,7 +53,26 @@ function useRegister() {
   })
 }
 
+/**
+ * Function untuk melakukan logout
+ *
+ * @returns Mutation hook untuk melakukan logout
+ */
+function useLogout() {
+  return useMutation({
+    mutationFn: () => axiosInstance.post('auth/logout'),
+    onSuccess: (data) => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      window.location.href = '/'
+      
+      toast.success(data.data.message)
+    }
+  })
+}
+
 export {
   useLogin,
+  useLogout,
   useRegister
 }
