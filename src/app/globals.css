@@ -7,64 +7,73 @@
   --foreground: #171717;
 }
 
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  background: transparent;
+}
+
 @layer base {
+  * {
+    @apply border-zinc-400 dark:border-zinc-800 
+  }
+
   body {
-    @apply font-inter min-w-max sm:w-full min-h-screen bg-neutral-50 dark:bg-neutral-950;
+    @apply relative font-inter min-w-max sm:w-full min-h-screen bg-neutral-50 dark:bg-neutral-950;
   }
 
   h1 {
-    @apply text-5xl font-semibold py-1
+    @apply text-5xl font-semibold py-1;
   }
-  
+
   h2 {
-    @apply text-4xl font-semibold py-1
+    @apply text-4xl font-semibold py-1;
   }
-  
+
   h3 {
-    @apply text-3xl font-semibold py-1
+    @apply text-3xl font-semibold py-1;
   }
-  
+
   h4 {
-    @apply text-2xl font-semibold py-1
+    @apply text-2xl font-semibold py-1;
   }
-  
+
   h5 {
-    @apply text-xl
+    @apply text-xl;
   }
-  
+
   h6 {
-    @apply text-large
+    @apply text-large;
   }
 
   p {
-    @apply text-zinc-600 text-small font-medium tracking-wider leading-6 text-pretty
+    @apply text-zinc-600 dark:text-zinc-400 text-small font-medium tracking-wider leading-6 text-pretty;
   }
-
 }
 
 @screen sm {
   h1 {
-    @apply text-6xl
+    @apply text-6xl;
   }
-  
+
   h2 {
-    @apply text-5xl
+    @apply text-5xl;
   }
-  
+
   h3 {
-    @apply text-4xl
+    @apply text-4xl;
   }
-  
+
   h4 {
-    @apply text-3xl
+    @apply text-3xl;
   }
-  
+
   h5 {
-    @apply text-2xl
+    @apply text-2xl;
   }
-  
+
   h6 {
-    @apply text-xl
+    @apply text-xl;
   }
 
   p {

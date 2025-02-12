@@ -143,18 +143,7 @@ const createStudentColumns = () => {
       label: "Aksi",
       renderCell: (item) => (
         <div className="flex gap-2">
-          <Button
-            isIconOnly
-            startContent={Icons.Eye}
-            color="primary"
-            variant="flat"
-          />
-          <Button
-            isIconOnly
-            startContent={Icons.Edit}
-            color="warning"
-            variant="flat"
-          />
+         <Button isIconOnly startContent={Icons.EditEye} color="primary" variant="flat" as="a" href={`/dashboard/student/detail/${item.id}`} />
           <Button
             isIconOnly
             startContent={Icons.Delete}
@@ -190,32 +179,20 @@ const createRoleColumns = () => {
   ] as Columns[];
 };
 
-const createAdminColumns = () => {
+const createAdminColumns = (setSelectedId: (id: string) => void, openDelete: () => void) => {
   return [
-    {
-      key: "id",
-      label: "ID",
-    },
-    {
-      key: "name",
-      label: "Nama",
-    },
+    { key: "id", label: "ID" },
+    { key: "name", label: "Nama" },
     {
       key: "role",
       label: "Role",
       renderCell: (item) => (
-        <Chip
-          color={item.role.name === "Super Admin" ? "danger" : "warning"}
-          variant="flat"
-        >
+        <Chip color={item.role.name === "Super Admin" ? "danger" : "warning"} variant="flat">
           {item.role.name}
         </Chip>
       ),
     },
-    {
-      key: "email",
-      label: "Email",
-    },
+    { key: "email", label: "Email" },
     {
       key: "created_at",
       label: "Tanggal Buat",
@@ -226,31 +203,19 @@ const createAdminColumns = () => {
       label: "Aksi",
       renderCell: (item) => (
         <div className="flex gap-2">
-          <Button
-            isIconOnly
-            startContent={Icons.Eye}
-            color="primary"
-            variant="flat"
-            as="a"
-            href={`/dashboard/admin/detail/${item.id  }`}
-          />
-          <Button
-            isIconOnly
-            startContent={Icons.Edit}
-            color="warning"
-            variant="flat"
-          />
-          <Button
-            isIconOnly
-            startContent={Icons.Delete}
-            color="danger"
-            variant="flat"
-          />
+          <Button isIconOnly startContent={Icons.EditEye} color="primary" variant="flat" as="a"
+            href={`/dashboard/admin/detail/${item.id}`} />
+          <Button isIconOnly startContent={Icons.Delete} color="danger" variant="flat"
+            onPress={() => {
+              setSelectedId(item.id);
+              openDelete();
+            }} />
         </div>
       ),
     },
   ] as Columns[];
 };
+
 
 export {
   createAdminColumns,

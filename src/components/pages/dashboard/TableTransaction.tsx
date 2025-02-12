@@ -17,7 +17,7 @@ import { useGetStudent } from "@/lib/hooks/useStudent";
 import { useForm } from "react-hook-form";
 
 const TableTransaction = () => {
-  const { data: dTransaction, isPending: isPendingTransaction, isLoading } = useGetTransaction();
+  const { data: dTransaction, isPending: isPendingTransaction } = useGetTransaction();
   const { data: dStudent } = useGetStudent("all");
 
   const student = dStudent?.result.filter((item: any) => item.allowed === true) || [];
@@ -36,7 +36,7 @@ const TableTransaction = () => {
         title="Daftar Semua Transaksi"
         columns={createTransactionColumns()}
         data={transaction}
-        isLoading={isLoading || isPendingTransaction}
+        isLoading={isPendingTransaction}
         searchPlaceholder="Cari transaksi..."
         modal={
           <Button color="primary" radius="full" size="sm" onPress={onOpen}>

@@ -25,7 +25,7 @@ function useLogin() {
     onError: (error: AxiosError) => {
       console.log(error);
 
-      toast.error((error.response?.data as { message: string }).message)
+      toast.error((error.response?.data as { message: string }).message ?? 'Terjadi Kesalahan pada Server')
     }
   })
 }

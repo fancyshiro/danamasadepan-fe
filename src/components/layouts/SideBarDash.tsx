@@ -20,10 +20,7 @@ const SideBarDash = () => {
 
           <div className="mt-2 mb-6 space-y-4">
             {item.items.map((item) => (
-              <div
-                key={item.name}
-                className={`rounded-xl p-2.5 w-full tracking-wider cursor-pointer flex items-center gap-2 ${item.href === path ? "bg-primary text-white" : "bg-default-200/50 hover:scale-95 transition-all duration-300"}`}
-              >
+              <div key={item.name} className={`rounded-xl p-2.5 w-full tracking-wider cursor-pointer flex items-center gap-2 ${item.href === path ? "bg-primary text-white" : "bg-default-200/50 hover:scale-95 transition-all duration-300"}`}>
                 <span>{item.icon}</span>
                 <Link href={item.href}>
                   {item.name}
@@ -41,7 +38,6 @@ const SideBarDash = () => {
         fullWidth
         onPress={() => mutate()}
         isDisabled={isPending}
-        isLoading={isPending}
       >
         Logout
       </Button>

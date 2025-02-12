@@ -14,14 +14,22 @@ import { AdminFormData, AdminUpdateFormData } from "../schema/Admin";
 function useGetAdmin() {
   return useQuery({
     queryKey: ["admin"],
-    queryFn: () => axiosInstance.get('admin').then((res) => res.data),
+    queryFn: () => axiosInstance.get("admin").then((res) => res.data),
   });
 }
 
+/**
+ * Function untuk mengambil data detail admin berdasarkan id
+ *
+ * @param {string} id id admin yang akan diambil
+ * @returns data detail admin yang sesuai dengan id
+ */
 function useGetAdminDetail(id: string) {
   return useQuery({
     queryKey: ["admin", id],
-    queryFn: () => axiosInstance.get(`admin/detail/${id}`).then((res) => res.data),
+    queryFn: () =>
+      axiosInstance.get(`admin/detail/${id}`).then((res) => res.data),
+    enabled: !!id,
   });
 }
 
@@ -75,24 +83,52 @@ function useAddAdmin() {
 function useUpdateAdmin(id: string) {
   const { refetch } = useGetAdminDetail(id);
 
-   const { mutate, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async (data: FormData) => axiosInstance.post(`admin/update/${id}`, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }),
+  const { mutate, isPending, isError, isSuccess } = useMutation({
+    mutationFn: async (data: FormData) =>
+      axiosInstance.post(`admin/update/${id}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }),
     onSuccess: (data) => {
       refetch();
 
       toast.success(data.data.message);
-    }
+    },
+    onError: (error: AxiosError) =>
+      toast.error((error.response?.data as { message: string }).message),
   });
 
   return {
     handleUpdate: mutate,
     updateLoad: isPending,
     isSuccess,
-    isError
+    isError,
+  };
+}
+
+/**
+ * Function untuk menghapus data admin
+ *
+ * @param {string} id ID admin yang ingin dihapus
+ */
+function useDeleteAdmin() {
+  const { refetch } = useGetAdmin();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (id: string) => axiosInstance.delete(`admin/delete/${id}`),
+    onSuccess: (data) => {
+      refetch();
+
+      toast.success(data.data.message);
+    },
+    onError: (error: AxiosError) =>
+      toast.error((error.response?.data as { message: string }).message),
+  });
+
+  return {
+    handleDelete: mutate,
+    deleteLoad: isPending,
   }
 }
 
@@ -130,4 +166,12 @@ function useChangeAllowed() {
   });
 }
 
-export { useGetAdmin, useGetAdminDetail, useAddAdmin, useGetUser, useChangeAllowed, useUpdateAdmin };
+export {
+  useGetAdmin,
+  useGetAdminDetail,
+  useAddAdmin,
+  useDeleteAdmin,
+  useGetUser,
+  useChangeAllowed,
+  useUpdateAdmin,
+};

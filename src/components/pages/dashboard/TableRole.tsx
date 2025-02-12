@@ -18,7 +18,7 @@ const TableRole = () => {
   const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure();
   
   // Get data role
-  const { data, isLoading: loadRole, isPending: pendRole } = useGetRole();
+  const { data, isPending: pendRole } = useGetRole();
 
   // Function Add Role
   const { formState, register, handleSubmit, reset } = useForm();
@@ -31,7 +31,7 @@ const TableRole = () => {
         title="Daftar Role"
         columns={createRoleColumns()}
         data={data?.result || []}
-        isLoading={loadRole || pendRole}
+        isLoading={pendRole}
         searchPlaceholder="Cari role..."
         modal={
           <Button

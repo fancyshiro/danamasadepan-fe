@@ -46,7 +46,7 @@ export const Menus = {
           icon: Icons.Dashboard,
         },
         {
-          name: "Pendaftaran",
+          name: "Persetujuan",
           href: "/dashboard/register",
           icon: Icons.Register,
         },

@@ -15,6 +15,17 @@ function useGetTransaction() {
   });
 }
 
+
+function useGetTransactionByAdmin( id: number | string, type?: 'all' | 'debit' | 'kredit') {
+  const url = type ? `transaction/admin/${id}?type=${type}` : `transaction/admin/${id}` 
+
+  return useQuery({
+    queryKey: ["transaction", id, type],
+    queryFn: () => axiosInstance.get(url).then((res) => res.data),
+    enabled: !!id
+  });
+}
+
 /**
  * Function untuk menangani transaksi siswa, seperti debit atau kredit.
  *
@@ -42,4 +53,4 @@ function useHandleTransaction() {
   });
 }
 
-export { useGetTransaction, useHandleTransaction };
+export { useGetTransaction, useGetTransactionByAdmin, useHandleTransaction };

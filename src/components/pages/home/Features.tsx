@@ -1,9 +1,9 @@
-import React from "react";
+import SpotlightCard from "@/components/reactbits/Components/SpotlightCard/SpotlightCard";
 import { FaUser } from "react-icons/fa6";
 
 const Features = () => {
   return (
-    <main className="py-16 space-y-12 hidden">
+    <main className="py-16 space-y-12">
       <div>
         <h3>Fitur yang Dimiliki</h3>
         <p>
@@ -11,26 +11,16 @@ const Features = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-6 flex-wrap *:border-2 *:border-neutral-900 *:bg-white *:shadow-lg *:cursor-pointer *:rounded-xl w-full h-[800px]">
-
-        <div className="w-[32%] h-[40%] p-6 flex flex-col justify-center space-y-4">
-          <span className="text-4xl">
-            <FaUser />
-          </span>
-          <div>
-            <h4>{features[0].title}</h4>
-            <p>{features[0].description}</p>
-          </div>
-        </div>
-
-        <div className="w-[32%] h-[30%] p-6 flex flex-col justify-center space-y-4"></div>
-        <div className="w-[32%] grow"></div>
-        <div className="w-[32%] h-1/4"></div>
-        <div className="w-[32%] h-[40%]"></div>
-        <div className="w-[32%] grow"></div>
-        <div className="w-[32%] h-[40%]"></div>
-        <div className="w-[32%] h-[30%]"></div>
-        <div className="w-[32%] grow"></div>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        {features.map((feature, index) => (
+          <SpotlightCard key={index}>
+            <div className="space-y-4">
+              <FaUser size={28} />
+              <h4>{feature.title}</h4>
+              <p className="text-zinc-400">{feature.description}</p>
+            </div>
+          </SpotlightCard>
+        ))}
       </div>
     </main>
   );

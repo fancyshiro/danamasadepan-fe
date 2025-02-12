@@ -6,7 +6,11 @@ import { Toaster } from "sonner";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient({
-    // ...
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      }
+    }
   });
 
   return (

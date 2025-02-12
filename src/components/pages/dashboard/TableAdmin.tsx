@@ -1,7 +1,7 @@
 "use client";
 
 import DataTable from "@/components/elements/TableData";
-import { useAddAdmin, useGetAdmin } from "@/lib/hooks/useAdmin";
+import { useAddAdmin, useDeleteAdmin, useGetAdmin } from "@/lib/hooks/useAdmin";
 import { useGetRole } from "@/lib/hooks/useRole";
 import { addAdminSchema, AdminFormData } from "@/lib/schema/Admin";
 import { createAdminColumns } from "@/static/Columns";
@@ -11,17 +11,23 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   Select,
   SelectItem,
   useDisclosure,
 } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const TableAdmin = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: admin, isLoading: loadAdmin } = useGetAdmin();
+  const { isOpen: isDeleteOpen, onOpen: openDelete, onClose: closeDelete } = useDisclosure();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  
+  // Function Get Admin dan Role
+  const { data: admin, isPending: loadAdmin } = useGetAdmin();
   const { data: role } = useGetRole();
 
   // Function Add Admin
@@ -31,11 +37,14 @@ const TableAdmin = () => {
     mode: "onSubmit",
   });
 
+  // Function Delete Admin
+  const { deleteLoad, handleDelete } = useDeleteAdmin();
+
   return (
     <>
       <DataTable
         title="Daftar Admin"
-        columns={createAdminColumns()}
+        columns={createAdminColumns(setSelectedId, openDelete)}
         data={admin?.result}
         isLoading={loadAdmin}
         searchPlaceholder="Cari admin..."
@@ -51,6 +60,7 @@ const TableAdmin = () => {
         }}
       />
 
+      {/* Modal untuk menambah Admin */}
       <Modal
         isOpen={isOpen}
         backdrop="opaque"
@@ -134,6 +144,30 @@ const TableAdmin = () => {
                   </Button>
                 </form>
               </ModalBody>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      {/* Modal untuk hapus Admin */}
+      <Modal isOpen={isDeleteOpen} onClose={closeDelete}>
+        <ModalContent>
+          {() => (
+            <>
+              <ModalHeader>Konfirmasi Hapus</ModalHeader>
+              <ModalBody>
+                <p>Apakah Anda yakin ingin menghapus admin ini?</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" onPress={() => {
+                  if (selectedId) {
+                    handleDelete(selectedId, { onSuccess: closeDelete });
+                  }
+                }} isDisabled={deleteLoad} isLoading={deleteLoad}>
+                  Hapus
+                </Button>
+                <Button variant="flat" onPress={closeDelete}>Batal</Button>
+              </ModalFooter>
             </>
           )}
         </ModalContent>

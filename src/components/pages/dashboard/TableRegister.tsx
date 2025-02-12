@@ -6,7 +6,7 @@ import { useGetStudent } from "@/lib/hooks/useStudent";
 import { createRegisterColumns } from "@/static/Columns";
 
 const TableRegister = () => {
-  const { data, isPending, isLoading } = useGetStudent("all");
+  const { data, isPending } = useGetStudent("all");
   const { mutate: changeAllowed } = useChangeAllowed();
   const result = data?.result || [];
 
@@ -16,10 +16,10 @@ const TableRegister = () => {
 
   return (
     <DataTable
-      title="Daftar Pendaftaran Siswa"
+      title="Daftar Siswa Persetujuan"
       columns={columns}
       data={result}
-      isLoading={isLoading || isPending}
+      isLoading={isPending}
       searchPlaceholder="Cari siswa..."
       classNames={{
         wrapper: "bg-white p-4 rounded-lg shadow",

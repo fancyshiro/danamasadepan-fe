@@ -4,7 +4,7 @@ import "moment/locale/id"; // Gunakan locale Indonesia
 // Set locale ke Bahasa Indonesia
 moment.locale("id");
 
-export function formattedDate(date: string | Date): string {
+export function formattedDate(date: string | Date = new Date()): string {
   const now = moment(); 
   const inputDate = moment(date); // Konversi input ke format Moment.js
   const diffMinutes = now.diff(inputDate, "minutes");

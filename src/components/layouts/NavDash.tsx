@@ -43,10 +43,8 @@ const NavDash = () => {
           <p>{user?.name ?? ""}</p>
           {user?.photo && (
             <Avatar
-              as="a"
-              isBordered
               src={`${process.env.NEXT_PUBLIC_STORAGE_ADMIN}${user?.photo}`}
-              href={`${process.env.NEXT_PUBLIC_STORAGE_ADMIN}${user?.photo}`}
+              isBordered
             />
           )}
         </NavbarItem>
@@ -60,7 +58,11 @@ const NavDash = () => {
         {Menus.dashboard.map((item) =>
           item.items.map((item) => (
             <NavbarMenuItem key={item.name}>
-              <Link color={item.href === path ? "primary" : "foreground"}  href={item.href} className="w-full">
+              <Link
+                color={item.href === path ? "primary" : "foreground"}
+                href={item.href}
+                className="w-full"
+              >
                 {item.name}
               </Link>
             </NavbarMenuItem>
