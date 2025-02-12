@@ -14,7 +14,7 @@ const SignIn = () => {
   const { mutate, isPending } = useLogin();
 
   return (
-    <div className="lg:border dark:border-zinc-800/70 lg:rounded-2xl sm:p-6 lg:shadow-lg dark:bg-zinc-900/70">
+    <div className="lg:border dark:border-zinc-800/70 lg:rounded-2xl sm:p-6 lg:shadow-md dark:bg-zinc-900/70">
 
       <div>
         <h2>Sign In</h2>

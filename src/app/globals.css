@@ -15,11 +15,11 @@
 
 @layer base {
   * {
-    @apply border-zinc-400 dark:border-zinc-800 
+    @apply border-zinc-200 dark:border-zinc-800 
   }
 
   body {
-    @apply relative font-inter min-w-max sm:w-full min-h-screen bg-neutral-50 dark:bg-neutral-950;
+    @apply relative font-inter sm:w-full min-h-screen bg-neutral-50 dark:bg-neutral-950;
   }
 
   h1 {

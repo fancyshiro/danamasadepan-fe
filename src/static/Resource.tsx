@@ -1,4 +1,3 @@
-
 import { Icons } from "./Icons";
 
 export const Options = {
@@ -94,3 +93,48 @@ export const Menus = {
     },
   ],
 };
+
+export const features = [
+  {
+    title: "Setoran Awal Ringan",
+    description:
+      "Mulai menabung dengan setoran awal yang sangat terjangkau untuk semua kalangan.",
+    icon: "low-deposit.png",
+    color: 'bg-primary/50 text-primary'
+  },
+  {
+    title: "Tarik Tunai di Seluruh ATM",
+    description:
+      "Akses dana dengan mudah melalui jaringan ATM nasional dan internasional.",
+    icon: "atm-access.png",
+    color: 'bg-success/50 text-success'
+  },
+  {
+    title: "Fitur Tabungan Berjangka",
+    description:
+      "Buat rencana keuangan lebih teratur dengan tabungan berjangka yang fleksibel.",
+    icon: "saving-plan.png",
+    color: 'bg-warning/50 text-warning'
+  },
+  {
+    title: "Keamanan Terjamin",
+    description:
+      "Keamanan data dan dana Anda terjamin dengan sistem keamanan berlapis.",
+    icon: "secure.png",
+    color: 'bg-danger/50 text-danger'
+  },
+  {
+    title: "Reward & Cashback",
+    description:
+      "Dapatkan berbagai reward dan cashback menarik setiap transaksi tertentu.",
+    icon: "reward.png",
+    color: 'bg-purple-500/50 text-purple-500'
+  },
+  {
+    title: "Transfer & Pembayaran Cepat",
+    description:
+      "Nikmati layanan transfer dan pembayaran instan dengan biaya minimal.",
+    icon: "fast-transfer.png",
+    color: 'bg-emerald-500/50 text-emerald-500'
+  },
+];

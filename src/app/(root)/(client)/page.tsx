@@ -1,7 +1,9 @@
 import SplineScene from "@/components/elements/SplineScene";
 import Features from "@/components/pages/home/Features";
 import Hero from "@/components/pages/home/Hero";
+import Location from "@/components/pages/home/Location";
 import SignInSection from "@/components/pages/home/SignIn";
+import Text from "@/components/pages/home/Text";
 
 export const metadata = {
   title: "Beranda",
@@ -12,9 +14,11 @@ export default function Home() {
   return (
     <>
       <Hero/>
+      <Text/>
       <SplineScene scene="https://prod.spline.design/9p5XxKosrmptT8Jb/scene.splinecode" />
       <Features/>
       <SignInSection />
+      <Location/>
     </>
   );
 }
