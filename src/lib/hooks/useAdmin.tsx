@@ -139,8 +139,8 @@ function useDeleteAdmin() {
  */
 function useGetUser() {
   return useQuery({
-    queryKey: ["admin"],
-    queryFn: () => axiosInstance.get("auth/profile").then((res) => res.data),
+    queryKey: ["user"],
+    queryFn: () => axiosInstance.get("admin/profile").then((res) => res.data),
   });
 }
 

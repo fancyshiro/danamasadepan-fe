@@ -7,14 +7,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const SignIn = () => {
+  const { mutate, isPending } = useLogin();
   const { formState, register, handleSubmit } = useForm<Login>({
-    mode: 'onSubmit',
+    mode: 'onBlur',
     resolver: zodResolver(LoginSchema),
   });
-  const { mutate, isPending } = useLogin();
+
+  const onSubmit = (data: Login) => {
+    if (localStorage.getItem('token') || localStorage.getItem('role')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+    }
+
+    mutate(data);
+  };
 
   return (
-    <div className="lg:border dark:border-zinc-800/70 lg:rounded-2xl sm:p-6 lg:shadow-md dark:bg-zinc-900/70">
+    <div className="lg:border dark:border-zinc-800/70 lg:rounded-2xl sm:p-6 h-max lg:shadow-md dark:bg-zinc-900/70">
 
       <div>
         <h2>Sign In</h2>
@@ -23,11 +32,7 @@ const SignIn = () => {
 
       <Divider className="my-6" />
 
-      <form
-        onSubmit={handleSubmit((data) =>
-          mutate({ email: data.email, password: data.password })
-        )}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-4 my-6">
           <Input
             label="Email"

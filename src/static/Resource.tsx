@@ -7,8 +7,9 @@ export const Options = {
     { value: "XII", name: "XII" },
   ],
   major: [
-    { value: "PPLG", name: "Pengembangan Perangkat Lunak dan GIM" },
-    { value: "TJKT", name: "Teknik Jaringan Komputer dan Telekomunikasi" },
+    { value: "RPL", name: "Pengembangan Perangkat Lunak dan GIM" },
+    { value: "RKJ", name: "Teknik Jaringan Komputer dan Telekomunikasi" },
+    { value: "AKL", name: "Akuntansi dan Keuangan Lembaga" },
   ],
   gender: [
     { value: "Laki-laki", name: "Laki-Laki" },
@@ -81,7 +82,7 @@ export const Menus = {
         },
         {
           name: "Laporan",
-          href: "/report",
+          href: "/dashboard/report",
           icon: Icons.File,
         },
         {
@@ -100,41 +101,41 @@ export const features = [
     description:
       "Mulai menabung dengan setoran awal yang sangat terjangkau untuk semua kalangan.",
     icon: "low-deposit.png",
-    color: 'bg-primary/50 text-primary'
+    color: 'bg-primary/25 text-primary'
   },
   {
     title: "Tarik Tunai di Seluruh ATM",
     description:
       "Akses dana dengan mudah melalui jaringan ATM nasional dan internasional.",
     icon: "atm-access.png",
-    color: 'bg-success/50 text-success'
+    color: 'bg-success/25 text-success'
   },
   {
     title: "Fitur Tabungan Berjangka",
     description:
       "Buat rencana keuangan lebih teratur dengan tabungan berjangka yang fleksibel.",
     icon: "saving-plan.png",
-    color: 'bg-warning/50 text-warning'
+    color: 'bg-warning/25 text-warning'
   },
   {
     title: "Keamanan Terjamin",
     description:
       "Keamanan data dan dana Anda terjamin dengan sistem keamanan berlapis.",
     icon: "secure.png",
-    color: 'bg-danger/50 text-danger'
+    color: 'bg-danger/25 text-danger'
   },
   {
     title: "Reward & Cashback",
     description:
       "Dapatkan berbagai reward dan cashback menarik setiap transaksi tertentu.",
     icon: "reward.png",
-    color: 'bg-purple-500/50 text-purple-500'
+    color: 'bg-purple-500/25 text-purple-500'
   },
   {
     title: "Transfer & Pembayaran Cepat",
     description:
       "Nikmati layanan transfer dan pembayaran instan dengan biaya minimal.",
     icon: "fast-transfer.png",
-    color: 'bg-emerald-500/50 text-emerald-500'
+    color: 'bg-emerald-500/25 text-emerald-500'
   },
 ];

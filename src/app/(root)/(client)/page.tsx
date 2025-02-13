@@ -1,6 +1,7 @@
 import SplineScene from "@/components/elements/SplineScene";
 import Features from "@/components/pages/home/Features";
 import Hero from "@/components/pages/home/Hero";
+import Leaderboard from "@/components/pages/home/Leaderboard";
 import Location from "@/components/pages/home/Location";
 import SignInSection from "@/components/pages/home/SignIn";
 import Text from "@/components/pages/home/Text";
@@ -15,9 +16,10 @@ export default function Home() {
     <>
       <Hero/>
       <Text/>
-      <SplineScene scene="https://prod.spline.design/9p5XxKosrmptT8Jb/scene.splinecode" />
       <Features/>
       <SignInSection />
+      <Leaderboard/> 
+      {/* <SplineScene scene="https://prod.spline.design/9p5XxKosrmptT8Jb/scene.splinecode" /> */}
       <Location/>
     </>
   );

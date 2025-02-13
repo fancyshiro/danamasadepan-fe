@@ -5,7 +5,7 @@ import { Chip } from "@heroui/react";
 
 const Location = () => {
   return (
-    <main className="py-16 space-y-6 hidden lg:block">
+    <main className="py-16 hidden lg:block">
       <div className="text-center">
         <h3>Lokasi Kami Saat Ini</h3>
         <p>

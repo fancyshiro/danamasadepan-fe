@@ -1,9 +1,13 @@
 "use client";
 
 import { useGetUser } from "@/lib/hooks/useAdmin";
+import { useDarkMode } from "@/lib/utils/useDarkMode";
+import { Icons } from "@/static/Icons";
 import { Menus } from "@/static/Resource";
 import {
   Avatar,
+  Button,
+  Divider,
   Link,
   Navbar,
   NavbarBrand,
@@ -16,10 +20,11 @@ import {
 import { usePathname } from "next/navigation";
 
 const NavDash = () => {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const path = usePathname();
   const { data } = useGetUser();
 
-  const user = data?.result;
+  const user = data?.result || {};
 
   return (
     <Navbar
@@ -39,6 +44,14 @@ const NavDash = () => {
       </NavbarContent>
 
       <NavbarContent justify="end" className="hidden lg:flex">
+        <NavbarItem className="flex gap-4 items-center">
+          <NavbarItem>
+            <Button isIconOnly variant="light" onPress={toggleDarkMode}>
+              {isDarkMode ? Icons.Moon : Icons.Sun}
+            </Button>
+          </NavbarItem>
+        </NavbarItem>
+        <Divider className="h-8" orientation="vertical" />
         <NavbarItem className="flex gap-4 items-center">
           <p>{user?.name ?? ""}</p>
           {user?.photo && (

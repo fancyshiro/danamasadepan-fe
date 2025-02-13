@@ -10,11 +10,12 @@ import {
   Input,
   Select,
   SelectItem,
+  Spinner,
 } from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const Admin = ({ id }: { id: any }) => {
+const Admin = ({ id, className }: { id: string; className?: string }) => {
   const { data: admin, isPending } = useGetAdminDetail(id);
   const { data: roles } = useGetRole();
 
@@ -52,7 +53,9 @@ const Admin = ({ id }: { id: any }) => {
   };
 
   return (
-    <div className="relative z-30 bg-white shadow-lg rounded-b-xl">
+    <div
+      className={`relative z-30 bg-white dark:bg-neutral-900/70 shadow-md rounded-b-xl ${className}`}
+    >
       <div>
         <Image
           src="/cover/bg15.png"
@@ -74,12 +77,18 @@ const Admin = ({ id }: { id: any }) => {
         </div>
       </div>
 
+      {isPending && (
+        <div className="flex justify-center items-center h-40">
+          <Spinner />
+        </div>
+      )}
+
       {!isPending && (
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded-b-xl">
           <div className="pb-6 flex flex-col gap-4">
             <Input
               label="Nama"
-              defaultValue={result?.name || "Terjadi Kesalahan"}
+              defaultValue={result?.name}
               placeholder=""
               labelPlacement="outside"
               isInvalid={Boolean(errors.name)}
@@ -88,7 +97,7 @@ const Admin = ({ id }: { id: any }) => {
             />
             <Input
               label="Email"
-              defaultValue={result?.email || "Terjadi Kesalahan"}
+              defaultValue={result?.email}
               placeholder=""
               labelPlacement="outside"
               isInvalid={Boolean(errors.email)}

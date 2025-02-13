@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Image } from "@heroui/react";
-import HeroImage  from "@/assets/images/hero.png";
+import HeroImage  from "@/assets/images/image4.png";
 
 const Hero = () => {
   return (

@@ -1,8 +1,6 @@
 "use client";
 
-import { useUpdateAdmin } from "@/lib/hooks/useAdmin";
 import { useGetStudentDetail } from "@/lib/hooks/useStudent";
-import { AdminUpdateFormData, updateAdminSchema } from "@/lib/schema/Admin";
 import { Options } from "@/static/Resource";
 import {
   Avatar,
@@ -11,106 +9,123 @@ import {
   Input,
   Select,
   SelectItem,
+  Spinner,
 } from "@heroui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 
-const Student = ({ id }: { id: string }) => {
+const Student = ({ id, className }: { id: string; className?: string }) => {
   const { data: student, isPending } = useGetStudentDetail(id);
   const result = student?.result || {};
 
-  return <pre>{JSON.stringify(student, null, 2)}</pre>
-
-  // // Function Update Admin
-  // const { handleUpdate, updateLoad } = useUpdateAdmin(id);
-  // const { handleSubmit, register, setValue, formState: { errors } } = useForm({
-  //   mode: "all",
-  //   resolver: zodResolver(updateAdminSchema),
-  // });
-
-  // // Handle Submit
-  // const onSubmit = (data) => {
-  //   const formData = new FormData();
-
-  //   // Handle photo
-  //   if (data.photo && data.photo[0] instanceof File) {
-  //     formData.append("photo", data.photo[0]);
-  //   }
-
-  //   // Handle other form fields
-  //   formData.append("_method", "PUT");
-  //   formData.append("name", data.name);
-  //   formData.append("email", data.email);
-  //   if (data.role_id !== result?.role_id) {
-  //     formData.append("role_id", String(data.role_id));
-  //   }
-
-  //   handleUpdate(formData);
-  // };
-
   return (
-    <div className="relative z-30 bg-white shadow-lg rounded-b-xl">
+    <div className={`relative z-30 bg-white dark:bg-neutral-900/70 h-max shadow-md rounded-xl p-6 ${className}`}>
       <div>
         <Image
           src="/cover/bg15.png"
-          alt="image"
+          alt="Cover Image"
           width={1000}
           radius="none"
-          className="h-48 min-w-full rounded-t-xl object-cover object-center"
-          style={{ width: "auto" }}
+          className="h-48 w-full rounded-t-xl object-cover object-center"
         />
 
         <div className="relative z-30 mx-auto -mt-12 flex h-24 items-center justify-center">
           {result.photo && (
             <Avatar
-              src={`http://localhost:8000/storage/${result?.photo}`}
-              className="w-24 h-24"
+              src={`http://localhost:8000/storage/${result.photo}`}
+              className="w-20 h-20"
               isBordered
             />
           )}
         </div>
       </div>
 
+      {isPending && (
+        <div className="flex justify-center items-center h-40">
+          <Spinner/>
+        </div>
+      )}
+
       {!isPending && (
-        <form  className="p-6 rounded-b-xl">
-          <div className="pb-6 flex flex-col gap-4">
+        <form>
+          <div className="flex flex-col gap-4 mb-6">
             <Input
               label="Nama"
-              defaultValue={result?.name || "Terjadi Kesalahan"}
-              placeholder=""
+              defaultValue={result.name}
               labelPlacement="outside"
             />
             <Input
               label="Email"
-              defaultValue={result?.email || "Terjadi Kesalahan"}
-              placeholder=""
+              defaultValue={result.email}
+              labelPlacement="outside"
+              isDisabled
+            />
+            <Input
+              label="Nomor Telepon"
+              defaultValue={result.phone}
+              labelPlacement="outside"
+              isDisabled
+            />
+            <Input
+              label="Alamat"
+              defaultValue={result.address}
               labelPlacement="outside"
             />
             <Select
-              label="Kelas"
-              placeholder="Pilih Kelas"
+              label="Jenis Kelamin"
               labelPlacement="outside"
-              defaultSelectedKeys={[result?.role_id]}
+              placeholder="Pilih Jenis Kelamin"
+              defaultSelectedKeys={result.gender ? [result.gender] : []}
             >
-              {Options.class?.map((item: any) => (
-                <SelectItem key={item.id} value={item.id}>
+              {Options.gender?.map((item: any) => (
+                <SelectItem key={item.value} value={item.value}>
                   {item.name}
                 </SelectItem>
               ))}
             </Select>
+            <Select
+              label="Jurusan"
+              labelPlacement="outside"
+              placeholder="Pilih Jurusan"
+              defaultSelectedKeys={result.major ? [result.major] : []}
+            >
+              {Options.major?.map((item: any) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.name}
+                </SelectItem>
+              ))}
+            </Select>
+            <Input
+              label="Saldo"
+              defaultValue={`Rp ${result.balance || 0}`}
+              labelPlacement="outside"
+              isDisabled
+            />
+            <Select
+              label="Kelas"
+              labelPlacement="outside"
+              placeholder="Pilih Kelas"
+              defaultSelectedKeys={result.class ? [result.class] : []}
+            >
+              {Options.class?.map((item: any) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.name}
+                </SelectItem>
+              ))}
+            </Select>
+            <Input
+              label="Photo"
+              placeholder="Unggah Foto Anda"
+              type="file"
+              labelPlacement="outside"
+              isDisabled
+            />
           </div>
-
-          <Button
-            color="primary"
-            type="submit"
-            fullWidth
-          >
-            asf
+          <Button color="primary" type="submit" fullWidth>
+            Simpan
           </Button>
         </form>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Student
+export default Student;

@@ -1,7 +1,5 @@
 "use client";
 
-import { useGetTransactionByAdmin } from "@/lib/hooks/useTransaction";
-import { formattedDate } from "@/lib/utils/FormatedDate";
 import {
   Card,
   CardBody,
@@ -17,16 +15,17 @@ import { BsArrowDownCircle, BsArrowUpCircle } from "react-icons/bs";
 import { SlCalender } from "react-icons/sl";
 import CardTransaction from "./cards/CardTransaction";
 import FetchState from "./FecthState";
+import { useGetTransactionUser } from "@/lib/hooks/useTransaction";
 
-const ListTransaksi = ({ id }: { id: string }) => {
+const ListTransaksi = ({ id, className, role }: { id: string, role: 'student' | 'admin', className?: string }) => {
   const [type, setType] = useState<"debit" | "kredit" | "all">("all");
 
   // Query data transaksi
-  const { data, isPending, isFetched } = useGetTransactionByAdmin( id, type !== "all" ? type : undefined );
+  const { data, isPending, isFetched } = useGetTransactionUser( id, role, type !== "all" ? type : undefined );
   const transaction = data?.result || [];
 
   return (
-    <main>
+    <div className={`${className} h-max`}>
       <Select
         label="Tipe Transaksi"
         placeholder="Pilih Tipe Transaksi"
@@ -49,13 +48,13 @@ const ListTransaksi = ({ id }: { id: string }) => {
         isLoading={isPending}
         isFetched={isFetched}
       >
-        <div className="flex flex-col gap-4 mt-6">
+        <div className="flex flex-col gap-4 mt-6 ">
           {transaction.slice(0, 5).map((item: any) => (
             <CardTransaction key={item.id} {...item} />
           ))}
         </div>
       </FetchState>
-    </main>
+    </div>
   );
 };
 

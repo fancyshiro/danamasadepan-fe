@@ -16,8 +16,8 @@ function useGetTransaction() {
 }
 
 
-function useGetTransactionByAdmin( id: number | string, type?: 'all' | 'debit' | 'kredit') {
-  const url = type ? `transaction/admin/${id}?type=${type}` : `transaction/admin/${id}` 
+function useGetTransactionUser( id: number | string, role: 'student' | 'admin', type?: 'all' | 'debit' | 'kredit' ) {
+  const url = type ? `transaction/user/${id}/${role}?type=${type}` : `transaction/user/${id}/${role}` 
 
   return useQuery({
     queryKey: ["transaction", id, type],
@@ -53,4 +53,4 @@ function useHandleTransaction() {
   });
 }
 
-export { useGetTransaction, useGetTransactionByAdmin, useHandleTransaction };
+export { useGetTransaction, useGetTransactionUser, useHandleTransaction };

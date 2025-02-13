@@ -10,7 +10,7 @@ import {
   TableCell,
   Input,
   Pagination,
-  Spinner
+  Spinner,
 } from "@heroui/react";
 import { BiSearch } from "react-icons/bi";
 
@@ -18,7 +18,7 @@ import { BiSearch } from "react-icons/bi";
 type Column = {
   key: string;
   label: string;
-  renderCell?: (item: any ) => React.ReactNode;
+  renderCell?: (item: any) => React.ReactNode;
 };
 
 type TableProps = {
@@ -38,21 +38,34 @@ type TableProps = {
   };
 };
 
-export default function DataTable({ columns, data = [], title, isLoading = false, rowsPerPage = 10, searchPlaceholder = "Cari...", classNames = {}, modal} : TableProps) {
+export default function DataTable({
+  columns,
+  data = [],
+  title,
+  isLoading = false,
+  rowsPerPage = 10,
+  searchPlaceholder = "Cari...",
+  classNames = {},
+  modal,
+}: TableProps) {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter data berdasarkan search
-  const filteredData = data?.filter((item) =>
-    Object.entries(item).some(([key, value]) => {
+  const filteredData = Array.isArray(data)
+  ? data.filter((item) =>
+      Object.entries(item).some(([key, value]) => {
+        if (columns.find((col) => col.key === key)) {
+          return (
+            value &&
+            value.toString().toLowerCase().includes(searchValue.toLowerCase())
+          );
+        }
+        return false;
+      })
+    )
+  : [];
 
-      // Hanya cari di kolom yang ada di columns
-      if (columns.find((col) => col.key === key)) {
-        return ( value && value.toString().toLowerCase().includes(searchValue.toLowerCase()));
-      }
-      return false;
-    })
-  );
 
   // Hitung total pages
   const pages = Math.ceil(filteredData.length / rowsPerPage);
@@ -63,28 +76,19 @@ export default function DataTable({ columns, data = [], title, isLoading = false
     currentPage * rowsPerPage
   );
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <Spinner />
-      </div>
-    );
-  }
-
   return (
-    <div className={`w-full space-y-4 ${classNames.wrapper}`}>
+    <div className={`w-full space-y-4 ${classNames.wrapper} bg-white dark:bg-neutral-900/70 rounded-xl shadow-md border-t-4 border-primary `}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         {title && (
           <div>
             <h3 className={`${classNames.title}`}>{title}</h3>
-            <p className="max-w-[90%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, sed.</p>
+            <p className="max-w-[90%]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Recusandae, sed.
+            </p>
           </div>
         )}
-        {modal && (
-          <div>
-            {modal}
-          </div>
-        )}
+        {modal && <div>{modal}</div>}
         <div className={`relative w-full sm:w-72 ${classNames.search}`}>
           <Input
             placeholder={searchPlaceholder}
@@ -96,6 +100,11 @@ export default function DataTable({ columns, data = [], title, isLoading = false
       </div>
 
       <div className="overflow-x-auto">
+        {isLoading ? (
+          <div className="flex justify-center items-center min-h-[200px]">
+            <Spinner />
+          </div>
+        ) : (
         <Table
           aria-label="Data Table"
           className={classNames.table}
@@ -103,7 +112,7 @@ export default function DataTable({ columns, data = [], title, isLoading = false
             <div className={`flex justify-between ${classNames.pagination}`}>
               <p>Jumlah Data: {filteredData.length}</p>
               <Pagination
-                showControls 
+                showControls
                 total={pages}
                 page={currentPage}
                 onChange={setCurrentPage}
@@ -113,9 +122,7 @@ export default function DataTable({ columns, data = [], title, isLoading = false
         >
           <TableHeader>
             {columns.map((column) => (
-              <TableColumn key={column.key}>
-                {column.label}
-              </TableColumn>
+              <TableColumn key={column.key}>{column.label}</TableColumn>
             ))}
           </TableHeader>
           <TableBody emptyContent="Tidak ada data">
@@ -130,6 +137,8 @@ export default function DataTable({ columns, data = [], title, isLoading = false
             ))}
           </TableBody>
         </Table>
+        )}
+
       </div>
     </div>
   );

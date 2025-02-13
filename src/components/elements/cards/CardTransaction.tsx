@@ -22,11 +22,11 @@ type TTransaction = {
 
 const CardTransaction = (props: TTransaction) => {
   return (
-    <Card isPressable>
+    <Card isPressable >
     <CardBody className="p-4">
-      <div className="flex items-center gap-4">
+      <div className="flex xl:items-center gap-4 flex-col xl:flex-row">
         {/* Transaction Icon */}
-        <div className={`p-2 rounded-full ${ props.type === "debit" ? "bg-success/10 text-success" : "bg-danger/10 text-danger"}`}>
+        <div className={`p-2 rounded-full w-max ${ props.type === "debit" ? "bg-success/10 text-success" : "bg-danger/10 text-danger"}`}>
           {props?.type === "debit" ? Icons.ArrowUp : Icons.ArrowDown}
         </div>
 
@@ -34,7 +34,7 @@ const CardTransaction = (props: TTransaction) => {
         <div className="flex-grow">
           <div className="flex justify-between items-start">
             <div>
-              <p className="font-semibold text-lg">
+              <p className="font-semibold text-lg line-clamp-3">
                 {props.student?.name}
               </p>
               <div className="flex items-center gap-2 text-sm text-gray-500">

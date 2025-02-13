@@ -10,7 +10,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   useDisclosure,
 } from "@heroui/modal";
 import { useGetStudent } from "@/lib/hooks/useStudent";
@@ -20,7 +19,7 @@ const TableTransaction = () => {
   const { data: dTransaction, isPending: isPendingTransaction } = useGetTransaction();
   const { data: dStudent } = useGetStudent("all");
 
-  const student = dStudent?.result.filter((item: any) => item.allowed === true) || [];
+  const student = dStudent?.result.filter((item: any) => item?.allowed === true) || [];
   const transaction = dTransaction?.result || [];
 
   // Modal
