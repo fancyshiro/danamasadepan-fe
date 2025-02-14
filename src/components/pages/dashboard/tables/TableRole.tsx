@@ -15,13 +15,14 @@ import { Button, Input } from "@heroui/react";
 import { useForm } from "react-hook-form";
 
 const TableRole = () => {
-  const { isOpen, onOpenChange, onClose, onOpen } = useDisclosure();
+  const { isOpen, onOpenChange, onOpen } = useDisclosure();
   
   // Get data role
   const { data, isPending: pendRole } = useGetRole();
+  const dataWithIndex = data?.result.map((item: any, index: number) => ({...item, index})) ?? [];
 
   // Function Add Role
-  const { formState, register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { mutate, isPending: isPendingHandle } = useAddRole();
 
 
@@ -30,7 +31,7 @@ const TableRole = () => {
       <DataTable
         title="Daftar Role"
         columns={createRoleColumns()}
-        data={data?.result || []}
+        data={dataWithIndex}
         isLoading={pendRole}
         searchPlaceholder="Cari role..."
         modal={

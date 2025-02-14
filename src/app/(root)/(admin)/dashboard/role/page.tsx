@@ -1,4 +1,4 @@
-import TableRole from "@/components/pages/dashboard/TableRole";
+import TableRole from "@/components/pages/dashboard/tables/TableRole";
 
 export default function RoleDashboard() {
   return (

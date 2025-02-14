@@ -1,19 +1,19 @@
 "use client";
 
 import DataTable from "@/components/elements/TableData";
-import { useChangeAllowed } from "@/lib/hooks/useAdmin";
 import { useGetStudent } from "@/lib/hooks/useStudent";
-import { createRegisterColumns, createStudentColumns } from "@/static/Columns";
+import { createStudentColumns } from "@/static/Columns";
 
 const TableStudents = () => {
   const { data, isPending } = useGetStudent("all");
   const result = data?.result.filter((item: any) => item.allowed === true) || [];
+  const dataWithIndex = result.map((item: any, index: number) => ({...item, index})) ?? [];
 
   return (
     <DataTable
       title="Daftar Siswa Menabung"
       columns={createStudentColumns()}
-      data={result}
+      data={dataWithIndex}
       isLoading={isPending}
       searchPlaceholder="Cari siswa..."
       classNames={{

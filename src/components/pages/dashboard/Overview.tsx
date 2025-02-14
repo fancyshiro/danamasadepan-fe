@@ -7,12 +7,12 @@ import { MdOutlineTrendingUp, MdOutlineTrendingDown } from "react-icons/md";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 
 const Overview = () => {
-  const { data, isPending } = useGetOverview();
+  const { data } = useGetOverview();
   const result = (data?.result as TOverview) || {};
 
   return (
     <main>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <Card classNames={{ base: "p-2 shadow-md border" }} isPressable>
           <CardBody>
             <div className="bg-primary/25 text-primary w-max p-2.5 rounded-full mb-4">

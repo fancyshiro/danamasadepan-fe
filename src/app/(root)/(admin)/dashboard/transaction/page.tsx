@@ -1,4 +1,4 @@
-import TableTransaction from "@/components/pages/dashboard/TableTransaction";
+import TableTransaction from "@/components/pages/dashboard/tables/TableTransaction";
 
 export default function Transaksi() {
   return (

@@ -16,6 +16,7 @@ function useGetTransaction() {
 }
 
 
+
 function useGetTransactionUser( id: number | string, role: 'student' | 'admin', type?: 'all' | 'debit' | 'kredit' ) {
   const url = type ? `transaction/user/${id}/${role}?type=${type}` : `transaction/user/${id}/${role}` 
 
@@ -24,6 +25,13 @@ function useGetTransactionUser( id: number | string, role: 'student' | 'admin', 
     queryFn: () => axiosInstance.get(url).then((res) => res.data),
     enabled: !!id
   });
+}
+
+function useGetWeekly() {
+  return useQuery({
+    queryFn: () => axiosInstance.get('transaction/weekly').then((res) => res.data),
+    queryKey: ['weekly'] 
+  })
 }
 
 /**
@@ -53,4 +61,4 @@ function useHandleTransaction() {
   });
 }
 
-export { useGetTransaction, useGetTransactionUser, useHandleTransaction };
+export { useGetTransaction, useGetTransactionUser, useGetWeekly, useHandleTransaction };

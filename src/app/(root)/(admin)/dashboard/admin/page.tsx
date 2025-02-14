@@ -1,4 +1,4 @@
-import TableAdmin from "@/components/pages/dashboard/TableAdmin";
+import TableAdmin from "@/components/pages/dashboard/tables/TableAdmin";
 
 export default function AdminDashboard() {
   return (

@@ -12,7 +12,11 @@ type Columns = {
 
 const createTransactionColumns = () => {
   return [
-    { key: "id", label: "ID" },
+    {
+      key: "id",
+      label: "ID",
+      renderCell: (item) => item.index + 1,
+    },
     {
       key: "admin",
       label: "Nama Admin",
@@ -50,13 +54,12 @@ const createTransactionColumns = () => {
   ] as Columns[];
 };
 
-const createRegisterColumns = (
-  onChangeAllowed: (id: number, allowed: boolean) => void
-) => {
+const createRegisterColumns = ( onChangeAllowed: (id: number | string) => void) => {
   return [
     {
       key: "id",
       label: "ID",
+      renderCell: (item) => item.index + 1,
     },
     {
       key: "name",
@@ -97,10 +100,9 @@ const createRegisterColumns = (
       label: "Disetujui",
       renderCell: (item) => (
         <Switch
-          color={item.allowed ? "success" : "danger"}
           size="sm"
-          defaultSelected={item.allowed}
-          onChange={() => onChangeAllowed(item.id, !item.allowed)}
+          defaultSelected={item.allowed === true}
+          onChange={() => onChangeAllowed(item.id)}
         />
       ),
     },
@@ -112,6 +114,7 @@ const createStudentColumns = () => {
     {
       key: "id",
       label: "ID",
+      renderCell: (item) => item.index + 1,
     },
     {
       key: "name",
@@ -161,6 +164,7 @@ const createRoleColumns = () => {
     {
       key: "id",
       label: "ID",
+      renderCell: (item) => item.index + 1,
     },
     {
       key: "name",
@@ -181,7 +185,11 @@ const createRoleColumns = () => {
 
 const createAdminColumns = (setSelectedId: (id: string) => void, openDelete: () => void) => {
   return [
-    { key: "id", label: "ID" },
+    {
+      key: "id",
+      label: "ID",
+      renderCell: (item) => item.index + 1,
+    },
     { key: "name", label: "Nama" },
     {
       key: "role",

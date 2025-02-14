@@ -28,6 +28,7 @@ const TableAdmin = () => {
   
   // Function Get Admin dan Role
   const { data: admin, isPending: loadAdmin } = useGetAdmin();
+  const dataWithIndex = admin?.result.map((item: any, index: number) => ({...item, index})) ?? [];
   const { data: role } = useGetRole();
 
   // Function Add Admin
@@ -45,7 +46,7 @@ const TableAdmin = () => {
       <DataTable
         title="Daftar Admin"
         columns={createAdminColumns(setSelectedId, openDelete)}
-        data={admin?.result}
+        data={dataWithIndex}
         isLoading={loadAdmin}
         searchPlaceholder="Cari admin..."
         modal={

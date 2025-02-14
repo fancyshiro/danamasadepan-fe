@@ -26,14 +26,17 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
   const {
     handleSubmit,
     register,
-    setValue,
     formState: { errors },
   } = useForm<AdminUpdateFormData>({
     mode: "all",
     resolver: zodResolver(updateAdminSchema),
+    defaultValues: {
+      role_id: result?.role_id,
+    }
   });
 
   const onSubmit = (data: AdminUpdateFormData) => {
+    console.log('Form data before submit:', data);
     const formData = new FormData();
 
     // Handle photo
@@ -117,10 +120,11 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
               label="Role"
               placeholder="Pilih Role"
               labelPlacement="outside"
-              defaultSelectedKeys={[result?.role_id]}
+              defaultSelectedKeys={[result?.role_id.toString()]}
               isInvalid={Boolean(errors.role_id)}
               errorMessage={errors.role_id?.message}
-              onChange={(e: any) => setValue("role_id", e.target.value)}
+              // onChange={(e: any) => setValue("role_id", e.target.value.toString())}
+              {...register("role_id")}
             >
               {roles?.result?.map((item: any) => (
                 <SelectItem key={item.id} value={item.id}>

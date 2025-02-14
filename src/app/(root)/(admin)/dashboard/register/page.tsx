@@ -1,4 +1,4 @@
-import TableRegister from "@/components/pages/dashboard/TableRegister";
+import TableRegister from "@/components/pages/dashboard/tables/TableRegister";
 
 export default function Register() {
   return (

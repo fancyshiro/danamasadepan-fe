@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetStudentDetail } from "@/lib/hooks/useStudent";
+import { useGetStudentDetail, useUpdateStudent } from "@/lib/hooks/useStudent";
 import { Options } from "@/static/Resource";
 import {
   Avatar,
@@ -11,6 +11,7 @@ import {
   SelectItem,
   Spinner,
 } from "@heroui/react";
+import { useForm } from "react-hook-form";
 
 const Student = ({ id, className }: { id: string; className?: string }) => {
   const { data: student, isPending } = useGetStudentDetail(id);
@@ -40,7 +41,7 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
 
       {isPending && (
         <div className="flex justify-center items-center h-40">
-          <Spinner/>
+          <Spinner />
         </div>
       )}
 
@@ -51,6 +52,7 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
               label="Nama"
               defaultValue={result.name}
               labelPlacement="outside"
+              isDisabled
             />
             <Input
               label="Email"
@@ -68,12 +70,14 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
               label="Alamat"
               defaultValue={result.address}
               labelPlacement="outside"
+              isDisabled
             />
             <Select
               label="Jenis Kelamin"
               labelPlacement="outside"
               placeholder="Pilih Jenis Kelamin"
               defaultSelectedKeys={result.gender ? [result.gender] : []}
+              isDisabled
             >
               {Options.gender?.map((item: any) => (
                 <SelectItem key={item.value} value={item.value}>
@@ -86,6 +90,7 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
               labelPlacement="outside"
               placeholder="Pilih Jurusan"
               defaultSelectedKeys={result.major ? [result.major] : []}
+              isDisabled
             >
               {Options.major?.map((item: any) => (
                 <SelectItem key={item.value} value={item.value}>
@@ -104,6 +109,7 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
               labelPlacement="outside"
               placeholder="Pilih Kelas"
               defaultSelectedKeys={result.class ? [result.class] : []}
+              isDisabled
             >
               {Options.class?.map((item: any) => (
                 <SelectItem key={item.value} value={item.value}>
@@ -120,7 +126,8 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
             />
           </div>
           <Button color="primary" type="submit" fullWidth>
-            Simpan
+            {/* {updateLoad ? "Loading..." : "Simpan Perubahan"} */}
+            Simpan Perubahan
           </Button>
         </form>
       )}

@@ -20,7 +20,7 @@ function useLogin() {
       localStorage.setItem('role', data.result.role)
 
       toast.success(data?.message)
-      data.result.role === 'admin' ? window.location.href = '/dashboard' : window.location.href = '/profile'
+      data.result.role === 'admin' ? window.location.href = '/dashboard' : window.location.href = '/student/profile'
     },
     onError: (error: AxiosError) => {
       console.log(error);

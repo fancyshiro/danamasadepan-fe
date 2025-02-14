@@ -20,7 +20,7 @@ const TableTransaction = () => {
   const { data: dStudent } = useGetStudent("all");
 
   const student = dStudent?.result.filter((item: any) => item?.allowed === true) || [];
-  const transaction = dTransaction?.result || [];
+  const transactionWithIndex = dTransaction?.result.map((item: any, index: number) => ({...item, index})) ?? [];
 
   // Modal
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -34,7 +34,7 @@ const TableTransaction = () => {
       <DataTable
         title="Daftar Semua Transaksi"
         columns={createTransactionColumns()}
-        data={transaction}
+        data={transactionWithIndex}
         isLoading={isPendingTransaction}
         searchPlaceholder="Cari transaksi..."
         modal={
@@ -82,7 +82,7 @@ const TableTransaction = () => {
                     >
                       {student.map((item: any) => (
                         <SelectItem value={item.id} key={item.id}>
-                          {item.name + " - " + item.class + item.major}
+                          {item.name + " - " + item.class + ' ' + item.major}
                         </SelectItem>
                       ))}
                     </Select>

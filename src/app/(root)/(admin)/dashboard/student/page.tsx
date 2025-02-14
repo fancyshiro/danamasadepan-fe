@@ -1,4 +1,4 @@
-import TableStudents from "@/components/pages/dashboard/TableStudens";
+import TableStudents from "@/components/pages/dashboard/tables/TableStudens";
 
 export default function StudentDashboard() {
   return (

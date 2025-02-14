@@ -82,6 +82,7 @@ function useAddAdmin() {
  */
 function useUpdateAdmin(id: string) {
   const { refetch } = useGetAdminDetail(id);
+  const { refetch: refetchUser } = useGetUser();
 
   const { mutate, isPending, isError, isSuccess } = useMutation({
     mutationFn: async (data: FormData) =>
@@ -92,6 +93,7 @@ function useUpdateAdmin(id: string) {
       }),
     onSuccess: (data) => {
       refetch();
+      refetchUser();
 
       toast.success(data.data.message);
     },
@@ -153,9 +155,8 @@ function useGetUser() {
 function useChangeAllowed() {
   const { refetch } = useGetStudent("all");
 
-  return useMutation({
-    mutationFn: async (data: { id: number; allowed: boolean }) =>
-      axiosInstance.put("admin/update/status", data).then((res) => res.data),
+  const { mutate } =  useMutation({
+    mutationFn: async (id: string | number) => axiosInstance.put(`admin/update/${id}/status`).then((res) => res.data),
     onSuccess: (data) => {
       refetch();
       toast.success(data?.message);
@@ -164,6 +165,10 @@ function useChangeAllowed() {
       toast.error((error.response?.data as { message: string }).message);
     },
   });
+
+  return {
+    handleUpdate: mutate,
+  }
 }
 
 export {

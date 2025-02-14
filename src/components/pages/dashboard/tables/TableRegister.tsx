@@ -7,18 +7,16 @@ import { createRegisterColumns } from "@/static/Columns";
 
 const TableRegister = () => {
   const { data, isPending } = useGetStudent("all");
-  const { mutate: changeAllowed } = useChangeAllowed();
-  const result = data?.result || [];
+  const { handleUpdate } = useChangeAllowed();
 
-  const columns = createRegisterColumns((id: number, allowed: boolean) =>
-    changeAllowed({ id, allowed })
-  );
+  const dataWithIndex = data?.result.map((item: any, index: number) => ({...item, index})) ?? [];
+  const columns = createRegisterColumns((id: string | number) => handleUpdate(id));
 
   return (
     <DataTable
       title="Daftar Siswa Persetujuan"
       columns={columns}
-      data={result}
+      data={dataWithIndex}
       isLoading={isPending}
       searchPlaceholder="Cari siswa..."
       classNames={{
