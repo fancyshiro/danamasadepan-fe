@@ -1,11 +1,9 @@
-import Student from "@/components/pages/dashboard/details/Student";
+import Profile from "@/components/pages/other/Profile";
 
-export default async function DetailPage({params}: {params: Promise<{id: string }>}) {
-  const { id } = await params
-  
+export default function DetailPage() {
   return (
-    <div>
-      {/* <Student id={id}/> */}
-    </div>
+    <main className="py-16">
+      <Profile />
+    </main>
   );
 }

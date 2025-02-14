@@ -17,14 +17,22 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 
 const NavDash = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-  const path = usePathname();
   const { data } = useGetUser();
+  const path = usePathname();
 
   const user = data?.result || {};
+
+  // TODO: BUG INVALIDATE QUERIES
+  const useRefreshAllData = () => {
+    const queryClient = useQueryClient();
+    
+    return () => queryClient.invalidateQueries();
+  };
 
   return (
     <Navbar
@@ -45,11 +53,14 @@ const NavDash = () => {
 
       <NavbarContent justify="end" className="hidden lg:flex">
         <NavbarItem className="flex gap-4 items-center">
-          <NavbarItem>
-            <Button isIconOnly variant="light" onPress={toggleDarkMode}>
-              {isDarkMode ? Icons.Moon : Icons.Sun}
-            </Button>
-          </NavbarItem>
+          <Button isIconOnly onPress={useRefreshAllData()} variant="light">
+            {Icons.Refresh}
+          </Button>
+        </NavbarItem>
+        <NavbarItem className="flex gap-4 items-center">
+          <Button isIconOnly variant="light" onPress={toggleDarkMode}>
+            {isDarkMode ? Icons.Moon : Icons.Sun}
+          </Button>
         </NavbarItem>
         <Divider className="h-8" orientation="vertical" />
         <NavbarItem className="flex gap-4 items-center">

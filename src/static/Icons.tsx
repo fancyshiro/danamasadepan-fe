@@ -1,5 +1,5 @@
 import { FaUser } from "react-icons/fa6";
-import { LuMoonStar, LuSun, LuEye, LuLayoutDashboard, LuUserRoundCheck } from "react-icons/lu";
+import { LuRefreshCcw, LuMoonStar, LuSun, LuEye, LuLayoutDashboard, LuUserRoundCheck } from "react-icons/lu";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { RiAdminLine, RiUser3Line } from "react-icons/ri";
 import { GrTransaction } from "react-icons/gr";
@@ -33,5 +33,6 @@ export const Icons = {
   ArrowDown: <IoArrowDownSharp size={s} />,
   date: <MdDateRange size={s} />,
   Moon: <LuMoonStar size={22} />,
-  Sun: <LuSun size={22} />
+  Sun: <LuSun size={22} />,
+  Refresh: <LuRefreshCcw size={s} />,
 }

@@ -148,9 +148,6 @@ function useGetUser() {
 
 /**
  * Function untuk mengubah status siswa untuk menabung
- *
- * @param {Object} data - object yang berisi id dan status allowed
- * @returns Mutation hook untuk mengubah status admin
  */
 function useChangeAllowed() {
   const { refetch } = useGetStudent("all");

@@ -4,7 +4,6 @@ import DataTable from "@/components/elements/TableData";
 import { useGetTransaction, useHandleTransaction } from "@/lib/hooks/useTransaction";
 import { createTransactionColumns } from "@/static/Columns";
 import { Button, Input, Select, SelectItem } from "@heroui/react";
-
 import {
   Modal,
   ModalContent,
@@ -20,12 +19,9 @@ const TableTransaction = () => {
   const { data: dStudent } = useGetStudent("all");
 
   const student = dStudent?.result.filter((item: any) => item?.allowed === true) || [];
-  const transactionWithIndex = dTransaction?.result.map((item: any, index: number) => ({...item, index})) ?? [];
+  const transactionWithIndex = dTransaction?.result.map((item: any, index: number) => ({ ...item, index })) ?? [];
 
-  // Modal
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  // Function Transaksi
   const { register, handleSubmit, reset } = useForm();
   const { mutate, isPending: isPendingHandle } = useHandleTransaction();
 
@@ -49,18 +45,31 @@ const TableTransaction = () => {
         }}
       />
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="opaque" isDismissable={false} isKeyboardDismissDisabled={true}
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        backdrop="opaque"
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
         classNames={{
           backdrop: "bg-gradient-to-t from-neutral-800 to-neutral-900/10 backdrop-opacity-20",
-        }}>
+        }}
+      >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+                Tambah Transaksi
               </ModalHeader>
               <ModalBody>
-                <form onSubmit={handleSubmit((data) => mutate({ student_id: data.student_id, type: data.type, amount: data.amount }, { onSuccess: () => reset() }))}>
+                <form
+                  onSubmit={handleSubmit((data) =>
+                    mutate(
+                      { student_id: data.student_id, type: data.type, amount: data.amount },
+                      { onSuccess: () => reset() }
+                    )
+                  )}
+                >
                   <div className="flex flex-col gap-4 mb-6">
                     <Select
                       label="Type Transaksi"
@@ -68,7 +77,7 @@ const TableTransaction = () => {
                       labelPlacement="outside"
                       {...register("type")}
                     >
-                      {[{ value: "debit", name: "Debit"}, { value: "kredit", name: "Kredit"}].map((item) => (
+                      {[{ value: "debit", name: "Debit" },{ value: "kredit", name: "Kredit" }].map((item) => (
                         <SelectItem value={item.value} key={item.value}>
                           {item.name}
                         </SelectItem>
@@ -82,15 +91,16 @@ const TableTransaction = () => {
                     >
                       {student.map((item: any) => (
                         <SelectItem value={item.id} key={item.id}>
-                          {item.name + " - " + item.class + ' ' + item.major}
+                          {item.name + " - " + item.class + " " + item.major}
                         </SelectItem>
                       ))}
                     </Select>
                     <Input
                       label="Jumlah"
                       placeholder="Masukan Jumlah"
-                      type="number"
+                      type="text"
                       labelPlacement="outside"
+                      description="Maks. Rp 10.000.000"
                       {...register("amount")}
                     />
                   </div>

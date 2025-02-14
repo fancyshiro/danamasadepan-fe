@@ -34,7 +34,7 @@ const CardTransaction = (props: TTransaction) => {
         <div className="flex-grow">
           <div className="flex justify-between items-start">
             <div>
-              <p className="font-semibold text-lg line-clamp-3">
+              <p className="font-semibold text-lg line-clamp-3 dark:text-white text-black">
                 {props.student?.name}
               </p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -44,7 +44,7 @@ const CardTransaction = (props: TTransaction) => {
               </div>
             </div>
             <div className="text-right">
-              <p className={`font-bold text-lg ${ props.type === "debit" ? "text-success" : "text-danger"}`}>
+              <p className={`font-bold text-lg ${ props.type === "debit" ? "text-success dark:text-success" : "text-danger dark:text-danger"}`}>
                 {props?.amount}
               </p>
               <Chip

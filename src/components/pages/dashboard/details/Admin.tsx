@@ -23,11 +23,7 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
 
   // Function Update Admin
   const { handleUpdate, updateLoad } = useUpdateAdmin(id);
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<AdminUpdateFormData>({
+  const { handleSubmit, register, formState: { errors }} = useForm<AdminUpdateFormData>({
     mode: "all",
     resolver: zodResolver(updateAdminSchema),
     defaultValues: {
@@ -56,9 +52,7 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
   };
 
   return (
-    <div
-      className={`relative z-30 bg-white dark:bg-neutral-900/70 shadow-md rounded-b-xl ${className}`}
-    >
+    <div className={`relative z-30 bg-white dark:bg-neutral-900/70 shadow-md rounded-b-xl ${className}`}>
       <div>
         <Image
           src="/cover/bg15.png"
@@ -70,13 +64,13 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
         />
 
         <div className="relative z-30 mx-auto -mt-12 flex h-24 items-center justify-center">
-          {result.photo && (
+          {result.photo ? (
             <Avatar
               src={`http://localhost:8000/storage/${result?.photo}`}
               className="w-24 h-24"
               isBordered
             />
-          )}
+          ): <Avatar className="w-24 h-24" isBordered />}
         </div>
       </div>
 

@@ -125,7 +125,7 @@ const Student = ({ id, className }: { id: string; className?: string }) => {
               isDisabled
             />
           </div>
-          <Button color="primary" type="submit" fullWidth>
+          <Button color="primary" type="submit" fullWidth isDisabled>
             {/* {updateLoad ? "Loading..." : "Simpan Perubahan"} */}
             Simpan Perubahan
           </Button>

@@ -1,7 +1,9 @@
 "use client";
 
+import HeroImage from "@/assets/images/image4.png";
 import { Button, Image } from "@heroui/react";
-import HeroImage  from "@/assets/images/image4.png";
+import { MdOutlineContactSupport } from "react-icons/md";
+import { PiSparkleFill } from "react-icons/pi";
 
 const Hero = () => {
   return (
@@ -14,11 +16,24 @@ const Hero = () => {
           tujuan finasial Anda✨
         </p>
         <div className="flex items-center justify-center lg:justify-start gap-2 flex-wrap mt-8">
-          <Button color="primary" radius="full" size="lg"  as='a' href="/student/register">
+          <Button
+            color="primary"
+            radius="full"
+            size="lg"
+            as="a"
+            href="/student/register"
+            startContent={<PiSparkleFill size={20} />}
+          >
             Bergabung Sekarang
           </Button>
-          <Button color="primary" variant="flat" size="lg" radius="full">
-            Cari Tabungan Anda
+          <Button
+            color="primary"
+            variant="flat"
+            size="lg"
+            radius="full"
+            startContent={<MdOutlineContactSupport size={20} />}
+          >
+            Hubungi Kami
           </Button>
         </div>
       </div>

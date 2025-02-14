@@ -1,16 +1,15 @@
 "use client";
 
-import {
-  Avatar,
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-  Image,
-  Spinner,
-} from "@heroui/react";
 import Image5 from "@/assets/images/image5.png";
+import { Button, Card, CardHeader, Image, Spinner } from "@heroui/react";
 import { useGetOverview } from "@/lib/hooks/useOverview";
+import { LuCrown } from "react-icons/lu"; 
+import { BiMedal } from "react-icons/bi";
+import { MdOutlineMilitaryTech } from "react-icons/md";
+import { PiMedalLight } from "react-icons/pi";
+
+const icons = [<LuCrown size={22} />, <BiMedal size={26} />, <MdOutlineMilitaryTech size={26} />]
+const color = ['primary', 'secondary', 'warning']
 
 const Leaderboard = () => {
   const { data, isPending } = useGetOverview();
@@ -18,8 +17,8 @@ const Leaderboard = () => {
 
   return (
     <main className="py-16 space-y-12">
-      <div>
-        <h3>Top LeaderBoard Siswa Rajin Menabung</h3>
+      <div className="text-center">
+        <h3>Top Siswa Rajin Menabung</h3>
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro,
           magni!
@@ -34,75 +33,20 @@ const Leaderboard = () => {
 
       {!isPending && (
         <div className="grid lg:grid-cols-2">
-          <div className="space-y-4">
-            <Card
-              classNames={{ base: "p-2 rounded-2xl w-full border" }}
-              className="dark:bg-zinc-900/70"
-              isPressable
-              isBlurred
-            >
-              <CardHeader>
-                <h3 className="text-warning">🪙 Rp.{topStudents[0]?.balance}</h3>
-              </CardHeader>
-              <CardBody>
-                <Divider className="mb-4" />
-                <div className="flex items-center gap-4">
-                  <Avatar name={topStudents[0].name} />
-                  <div>
-                    <h5 className="font-medium">{topStudents[0]?.name}</h5>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {topStudents[0]?.class} {topStudents[0]?.major}
-                    </p>
+          <div className="space-y-4 flex justify-center flex-col">
+            {topStudents.slice(0, 5).map((item: any, index: number) => (
+              <Card className="hover:scale-110 duration-500 cursor-pointer dark:bg-zinc-900/70">
+                <CardHeader>
+                  <Button isIconOnly variant="flat" color={color[index] as "primary" | "secondary" | "warning" }>
+                    {icons[index] ?? <PiMedalLight size={22} />}
+                  </Button>
+                  <div className="flex flex-col ms-4">
+                    <span className="font-semibold text-xl">{item.name}</span>
+                    <small>{item.class} - {item.major}</small>
                   </div>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card
-              classNames={{ base: "p-2 rounded-2xl w-full border" }}
-              className="dark:bg-zinc-900/70"
-              isPressable
-              isBlurred
-            >
-              <CardHeader>
-                <h4 className="text-warning">🪙 Rp.{topStudents[1]?.balance}</h4>
-              </CardHeader>
-              <CardBody>
-                <Divider className="mb-4" />
-                <div className="flex items-center gap-4">
-                  <Avatar name={topStudents[1]?.name} />
-                  <div>
-                    <h5 className="font-medium">{topStudents[1]?.name}</h5>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {topStudents[1]?.class} {topStudents[1]?.major}
-                    </p>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-
-            <Card
-              classNames={{ base: "p-2 rounded-2xl w-full border" }}
-              className="dark:bg-zinc-900/70"
-              isPressable
-              isBlurred
-            >
-              <CardHeader>
-                <h5 className="text-warning font-bold">🪙 Rp.{topStudents[2].balance}</h5>
-              </CardHeader>
-              <CardBody>
-                <Divider className="mb-4" />
-                <div className="flex items-center gap-4">
-                  <Avatar name={topStudents[2].name} />
-                  <div>
-                    <h5 className="font-medium">{topStudents[2]?.name}</h5>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {topStudents[2]?.class} {topStudents[2]?.major}
-                    </p>
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
+                </CardHeader>
+              </Card>
+            ))}
           </div>
 
           <div className="flex justify-center items-center">

@@ -23,7 +23,10 @@ const PiePercentage = ({ className }: { className?: string }) => {
 
   return (
     <Card className={className}>
-      <h4 className="text-xl font-semibold mb-4">Persentase Transaksi</h4>
+      <div>
+        <h4 className="text-xl font-semibold">Persentase Transaksi</h4>
+        <p className="text-gray-500 mt-1">Lorem ipsum dolor sit amet consectetur.</p>
+      </div>
       <div className="w-full h-[300px] flex justify-center items-center">
         {isPending ? <Spinner /> : (
           <ResponsiveContainer width="100%" height="100%">

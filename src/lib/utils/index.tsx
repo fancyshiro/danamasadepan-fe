@@ -2,7 +2,20 @@
 const parseIndonesianNumber = (str: string): number => parseInt(str.replace(/\./g, "").replace(",", "."), 10);
 
 // Helper function to format number for display
-const formatNumber = (num: number): string => new Intl.NumberFormat("id-ID").format(num);
+const formatNumber = (value: number | string): string => {
+  let numberValue;
+
+  // Jika input berupa string, konversi ke number
+  if (typeof value === "string") {
+    const cleanValue = value.replace(/\D/g, "");
+    numberValue = parseInt(cleanValue, 10) || 0;
+  } else {
+    numberValue = value;
+  }
+
+  return new Intl.NumberFormat("id-ID").format(numberValue);
+};
+
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {

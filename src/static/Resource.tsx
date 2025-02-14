@@ -28,8 +28,8 @@ export const Menus = {
       href: "/student/register",
     },
     {
-      name: "Search",
-      href: "/student/search",
+      name: "Tentang",
+      href: "/about",
     },
     {
       name: "Kontak",
@@ -77,7 +77,7 @@ export const Menus = {
       items: [
         {
           name: "Profile",
-          href: "/profile",
+          href: "/dashboard/profile",
           icon: Icons.Profile,
         },
         {

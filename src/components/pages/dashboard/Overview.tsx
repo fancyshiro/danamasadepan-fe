@@ -12,7 +12,7 @@ const Overview = () => {
 
   return (
     <main>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <Card classNames={{ base: "p-2 shadow-md border" }} isPressable>
           <CardBody>
             <div className="bg-primary/25 text-primary w-max p-2.5 rounded-full mb-4">

@@ -8,9 +8,9 @@ export default function Dashboard() {
     <div className="col-span-4 xl:col-span-5 space-y-8 pb-16">
       <Overview />
       <Divider />
-      <div className="grid grid-cols-12 gap-4">
-        <ChartWeekTransaction className="p-4 col-span-8" />
-        <PiePercentage className="p-4 col-span-4 h-max" />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <ChartWeekTransaction className="p-4 lg:col-span-7 xl:col-span-8" />
+        <PiePercentage className="p-4 lg:col-span-5 xl:col-span-4 h-max" />
       </div>
     </div>
   );

@@ -3,7 +3,14 @@
 import { useRegister } from "@/lib/hooks/useAuth";
 import { type Register, RegisterSchema } from "@/lib/schema/Auth";
 import { Options } from "@/static/Resource";
-import { Button, Divider, Input, Select, SelectItem, Textarea } from "@heroui/react";
+import {
+  Button,
+  Divider,
+  Input,
+  Select,
+  SelectItem,
+  Textarea,
+} from "@heroui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -12,14 +19,6 @@ const Register = () => {
   const { formState, register, handleSubmit, reset } = useForm<Register>({
     mode: "onSubmit",
     resolver: zodResolver(RegisterSchema),
-    defaultValues: {
-      name: "John Doe",
-      class: "X",
-      phone: "08123456789",
-      email: "jhondoe@gmail.com",
-      password: "password",
-      address: "lorem ipsum dolor",
-    },
   });
 
   // Handle Submit
@@ -35,14 +34,14 @@ const Register = () => {
     formData.append("password", data.password);
     formData.append("address", data.address);
     if (data.photo && data.photo.length > 0) {
-      formData.append("photo", data.photo[0]); 
+      formData.append("photo", data.photo[0]);
     }
 
     mutate(formData, { onSuccess: () => reset() });
   };
 
   return (
-    <div className="lg:col-span-2 lg:border lg:rounded-2xl sm:p-6 lg:bg-white lg:shadow-lg">
+    <div className=" lg:rounded-xl sm:p-6 lg:bg-white lg:dark:bg-zinc-900/70 lg:shadow-lg">
       <div>
         <h2>Daftar Lalu Menabung</h2>
         <p>

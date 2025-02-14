@@ -43,11 +43,7 @@ const ListTransaksi = ({ id, className, role }: { id: string, role: 'student' | 
         ))}
       </Select>
 
-      <FetchState
-        dataLength={transaction.length}
-        isLoading={isPending}
-        isFetched={isFetched}
-      >
+      <FetchState dataLength={transaction.length} isLoading={isPending} isFetched={isFetched}>
         <div className="flex flex-col gap-4 mt-6 ">
           {transaction.slice(0, 5).map((item: any) => (
             <CardTransaction key={item.id} {...item} />

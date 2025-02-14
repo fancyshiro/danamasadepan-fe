@@ -36,3 +36,16 @@ const RegisterSchema = z.object({
 
 type Register = z.infer<typeof RegisterSchema>;
 export { RegisterSchema, type Register };
+
+
+const ChangePasswordSchema = z.object({
+  old_password: z.string().min(1, 'Password lama wajib diisi'),
+  new_password: z.string().min(8, 'Password baru minimal 8 karakter'),
+  new_password_confirmation: z.string().min(8, 'Konfirmasi password minimal 8 karakter'),
+}).refine((data) => data.new_password === data.new_password_confirmation, {
+  message: 'Konfirmasi password tidak sesuai',
+  path: ['new_password_confirmation'],
+});
+
+type ChangePassword = z.infer<typeof ChangePasswordSchema>;
+export { ChangePasswordSchema, type ChangePassword };
