@@ -3,6 +3,7 @@ import { axiosInstance } from "../utils/axios";
 import { getToken } from "../utils/getToken";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
+import { StudentUpdateFormData } from "../schema/Student";
 
 function useGetStudent(type: "all" | "detail") {
   const url = type === "all" ? "student" : "student/detail";
@@ -27,16 +28,34 @@ function useGetStudentDetail(id: string) {
   });
 }
 
+//TODO - update student
 function useUpdateStudent(id: string) {
   const { refetch } = useGetStudentDetail(id);
 
   const { mutate, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async (data: FormData) =>
-      axiosInstance.post(`admin/update/${id}`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }),
+    mutationFn: async (data: StudentUpdateFormData) => {
+      const formData = new FormData();
+
+      console.log(data);
+
+      // Handle photo
+      if (data.photo && data.photo[0]) {
+        formData.append("photo", data.photo[0]);
+      }
+
+      // Handle other form fields
+      formData.append("_method", "PUT");
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("gender", data.gender);
+      formData.append("major", data.major);
+      formData.append("class", data.class);
+      formData.append("phone", data.phone);
+      formData.append("address", data.address);
+
+
+      return axiosInstance.post(`student/update/${id}`, formData);
+    },
     onSuccess: (data) => {
       refetch();
 
@@ -47,8 +66,8 @@ function useUpdateStudent(id: string) {
   });
 
   return {
-    handleUpdate: mutate,
-    updateLoad: isPending,
+    UpdateStudent: mutate,
+    UpdateLoad: isPending,
     isSuccess,
     isError,
   };

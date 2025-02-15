@@ -20,27 +20,14 @@ const Profile = ({ className }: { className?: string }) => {
   const { data, isPending } = useGetUser();
   const result = data?.result || {};
 
-  const { handleUpdate, updateLoad } = useUpdateAdmin(result.id);
+  const { UpdateAdmin, UpdateLoad } = useUpdateAdmin(result.id);
   const { register, handleSubmit, formState: { errors }} = useForm<AdminUpdateFormData>({
     mode: "all",
     resolver: zodResolver(updateAdminSchema),
   });
 
-  const onSubmit = (data: AdminUpdateFormData) => {
-    const formData = new FormData();
+  const onSubmit = (data: AdminUpdateFormData) => UpdateAdmin(data);
 
-    // Handle photo
-    if (data.photo && data.photo[0] instanceof File) {
-      formData.append("photo", data.photo[0]);
-    }
-
-    // Handle other form fields
-    formData.append("_method", "PUT");
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-
-    handleUpdate(formData);
-  };
 
   return (
     <main className="grid grid-cols-1 xl:grid-cols-6 gap-6">
@@ -73,7 +60,7 @@ const Profile = ({ className }: { className?: string }) => {
         )}
 
         {!isPending && (
-          <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded-b-xl">
+          <form onSubmit={handleSubmit((data) => UpdateAdmin(data))} className="p-6 rounded-b-xl">
             <div className="pb-6 flex flex-col gap-4">
               <Input
                 label="Nama"
@@ -108,10 +95,10 @@ const Profile = ({ className }: { className?: string }) => {
               color="primary"
               type="submit"
               fullWidth
-              isDisabled={updateLoad}
-              isLoading={updateLoad}
+              isDisabled={UpdateLoad}
+              isLoading={UpdateLoad}
             >
-              {updateLoad ? "Loading..." : "Simpan Perubahan"}
+              {UpdateLoad ? "Loading..." : "Simpan Perubahan"}
             </Button>
           </form>
         )}

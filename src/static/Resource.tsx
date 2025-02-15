@@ -8,7 +8,7 @@ export const Options = {
   ],
   major: [
     { value: "RPL", name: "Pengembangan Perangkat Lunak dan GIM" },
-    { value: "RKJ", name: "Teknik Jaringan Komputer dan Telekomunikasi" },
+    { value: "TKJ", name: "Teknik Jaringan Komputer dan Telekomunikasi" },
     { value: "AKL", name: "Akuntansi dan Keuangan Lembaga" },
   ],
   gender: [

@@ -32,6 +32,9 @@ const Hero = () => {
             size="lg"
             radius="full"
             startContent={<MdOutlineContactSupport size={20} />}
+            as="a"
+            href="https://wa.me/62225945933?text=Halo%20saya%20ingin%20bertanya%20tentang%20layanan%20Anda"
+            target="_blank"
           >
             Hubungi Kami
           </Button>

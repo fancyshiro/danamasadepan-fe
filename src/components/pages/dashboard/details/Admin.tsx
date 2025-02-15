@@ -16,13 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const Admin = ({ id, className }: { id: string; className?: string }) => {
-  const { data: admin, isPending } = useGetAdminDetail(id);
+  const { result, loadingAdminDetail } = useGetAdminDetail(id);
   const { data: roles } = useGetRole();
 
-  const result = admin?.result || {};
-
   // Function Update Admin
-  const { handleUpdate, updateLoad } = useUpdateAdmin(id);
+  const { UpdateAdmin, UpdateLoad } = useUpdateAdmin(id);
   const { handleSubmit, register, formState: { errors }} = useForm<AdminUpdateFormData>({
     mode: "all",
     resolver: zodResolver(updateAdminSchema),
@@ -30,26 +28,6 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
       role_id: result?.role_id,
     }
   });
-
-  const onSubmit = (data: AdminUpdateFormData) => {
-    console.log('Form data before submit:', data);
-    const formData = new FormData();
-
-    // Handle photo
-    if (data.photo && data.photo[0] instanceof File) {
-      formData.append("photo", data.photo[0]);
-    }
-
-    // Handle other form fields
-    formData.append("_method", "PUT");
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    if (data.role_id !== result?.role_id) {
-      formData.append("role_id", String(data.role_id));
-    }
-
-    handleUpdate(formData);
-  };
 
   return (
     <div className={`relative z-30 bg-white dark:bg-neutral-900/70 shadow-md rounded-b-xl ${className}`}>
@@ -74,14 +52,14 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
         </div>
       </div>
 
-      {isPending && (
+      {loadingAdminDetail && (
         <div className="flex justify-center items-center h-40">
           <Spinner />
         </div>
       )}
 
-      {!isPending && (
-        <form onSubmit={handleSubmit(onSubmit)} className="p-6 rounded-b-xl">
+      {!loadingAdminDetail && (
+      <form onSubmit={handleSubmit((data) => UpdateAdmin(data))} className="p-6 rounded-b-xl">
           <div className="pb-6 flex flex-col gap-4">
             <Input
               label="Nama"
@@ -117,7 +95,6 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
               defaultSelectedKeys={[result?.role_id.toString()]}
               isInvalid={Boolean(errors.role_id)}
               errorMessage={errors.role_id?.message}
-              // onChange={(e: any) => setValue("role_id", e.target.value.toString())}
               {...register("role_id")}
             >
               {roles?.result?.map((item: any) => (
@@ -132,10 +109,10 @@ const Admin = ({ id, className }: { id: string; className?: string }) => {
             color="primary"
             type="submit"
             fullWidth
-            isDisabled={updateLoad}
-            isLoading={updateLoad}
+            isDisabled={UpdateLoad}
+            isLoading={UpdateLoad}
           >
-            {updateLoad ? "Loading..." : "Simpan Perubahan"}
+            {UpdateLoad ? "Loading..." : "Simpan Perubahan"}
           </Button>
         </form>
       )}

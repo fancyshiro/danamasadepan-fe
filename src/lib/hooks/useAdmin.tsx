@@ -25,12 +25,17 @@ function useGetAdmin() {
  * @returns data detail admin yang sesuai dengan id
  */
 function useGetAdminDetail(id: string) {
-  return useQuery({
+  const { data, refetch, isPending } =  useQuery({
     queryKey: ["admin", id],
-    queryFn: () =>
-      axiosInstance.get(`admin/detail/${id}`).then((res) => res.data),
+    queryFn: () => axiosInstance.get(`admin/detail/${id}`).then((res) => res.data),
     enabled: !!id,
   });
+
+  return {
+    result: data?.result || {},
+    refetchAdminDetail: refetch,
+    loadingAdminDetail: isPending,
+  }
 }
 
 /**
@@ -81,20 +86,31 @@ function useAddAdmin() {
  * @returns Mutation hook untuk mengupdate data admin
  */
 function useUpdateAdmin(id: string) {
-  const { refetch } = useGetAdminDetail(id);
+  const { refetchAdminDetail } = useGetAdminDetail(id);
   const { refetch: refetchUser } = useGetUser();
 
   const { mutate, isPending, isError, isSuccess } = useMutation({
-    mutationFn: async (data: FormData) =>
-      axiosInstance.post(`admin/update/${id}`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }),
-    onSuccess: (data) => {
-      refetch();
-      refetchUser();
+    mutationFn: async (data: AdminUpdateFormData) => {
+      const formData = new FormData();
 
+      // Handle photo
+      if (data.photo && data.photo[0]) {
+        formData.append("photo", data.photo[0]);
+      }
+
+      // Handle other form fields
+      formData.append("_method", "PUT");
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      if (data.role_id) {
+        formData.append("role_id", String(data.role_id));
+      }
+
+      return axiosInstance.post(`admin/update/${id}`, formData);
+    },
+    onSuccess: (data) => {
+      refetchAdminDetail();
+      refetchUser();
       toast.success(data.data.message);
     },
     onError: (error: AxiosError) =>
@@ -102,8 +118,8 @@ function useUpdateAdmin(id: string) {
   });
 
   return {
-    handleUpdate: mutate,
-    updateLoad: isPending,
+    UpdateAdmin: mutate,
+    UpdateLoad: isPending,
     isSuccess,
     isError,
   };
@@ -129,9 +145,9 @@ function useDeleteAdmin() {
   });
 
   return {
-    handleDelete: mutate,
-    deleteLoad: isPending,
-  }
+    DeleteAdmin: mutate,
+    loadingDelete: isPending,
+  };
 }
 
 /**
@@ -152,8 +168,9 @@ function useGetUser() {
 function useChangeAllowed() {
   const { refetch } = useGetStudent("all");
 
-  const { mutate } =  useMutation({
-    mutationFn: async (id: string | number) => axiosInstance.put(`admin/update/${id}/status`).then((res) => res.data),
+  const { mutate } = useMutation({
+    mutationFn: async (id: string | number) =>
+      axiosInstance.put(`admin/update/${id}/status`).then((res) => res.data),
     onSuccess: (data) => {
       refetch();
       toast.success(data?.message);
@@ -165,7 +182,7 @@ function useChangeAllowed() {
 
   return {
     handleUpdate: mutate,
-  }
+  };
 }
 
 export {

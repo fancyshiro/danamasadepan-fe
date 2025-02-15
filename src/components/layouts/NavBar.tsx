@@ -7,14 +7,20 @@ import { Menus } from "@/static/Resource";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Button, Divider, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
   const path = usePathname();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { mutate } = useLogout();
 
-  // const role =  localStorage.getItem("role");
-  const role =  'student';
+  // GET ROLE FROM LOCALSTORAGE
+  const [role, setRole] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setRole(localStorage.getItem("role"));
+    }
+  }, []);
 
   return (
     <Navbar classNames={{ base: "shadow-md py-2 border-b " }}>

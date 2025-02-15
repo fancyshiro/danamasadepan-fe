@@ -39,7 +39,7 @@ const TableAdmin = () => {
   });
 
   // Function Delete Admin
-  const { deleteLoad, handleDelete } = useDeleteAdmin();
+  const { loadingDelete, DeleteAdmin } = useDeleteAdmin();
 
   return (
     <>
@@ -161,10 +161,8 @@ const TableAdmin = () => {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" onPress={() => {
-                  if (selectedId) {
-                    handleDelete(selectedId, { onSuccess: closeDelete });
-                  }
-                }} isDisabled={deleteLoad} isLoading={deleteLoad}>
+                  if (selectedId) DeleteAdmin(selectedId, { onSuccess: closeDelete });
+                }} isDisabled={loadingDelete} isLoading={loadingDelete}>
                   Hapus
                 </Button>
                 <Button variant="flat" onPress={closeDelete}>Batal</Button>
