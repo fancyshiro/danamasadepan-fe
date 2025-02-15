@@ -31,7 +31,7 @@ const Overview = () => {
               <HiOutlineBanknotes size={28} />
             </div>
             <div>
-              <h4>Rp. {result?.total_balance}</h4>
+              <h4>Rp. {result?.total_balance ?? 0}</h4>
               <span>Total Seluruh Saldo</span>
             </div>
           </CardBody>
